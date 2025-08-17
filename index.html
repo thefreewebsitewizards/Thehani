@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sriola - Where ideas become visuals</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h1>Sriola</h1>
+                <span class="by-text">By Thehani</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+                <li><a href="#services" class="nav-link">Content Suite</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="brand-section">
+                    <h1 class="brand-name">Sriola</h1>
+                    <p class="by-line">By Thehani</p>
+                    <div class="tagline">
+                        <h2 class="subheading">Where ideas become visuals</h2>
+                        <p class="tagline-sub">crafted with elegance and intention.</p>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="images/a.jpg" alt="Creative Visual" class="hero-img">
+                </div>
+            </div>
+            <div class="hero-quote">
+                <blockquote>
+                    "Creativity is intelligence having fun. Every project is an opportunity to transform ideas into compelling visual stories."
+                </blockquote>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <h2 class="section-title">Portfolio</h2>
+            
+            <!-- Image Portfolio Section -->
+            <div class="portfolio-section">
+                <h3 class="portfolio-subsection-title">Photography</h3>
+                <div class="portfolio-filter">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="brand">Brand</button>
+                    <button class="filter-btn" data-filter="product">Product</button>
+                    <button class="filter-btn" data-filter="lifestyle">Lifestyle</button>
+                    <button class="filter-btn" data-filter="event">Event</button>
+                </div>
+                <div class="masonry-grid">
+                    <div class="portfolio-item" data-category="brand">
+                        <div class="portfolio-image-wrapper">
+                            <img src="images/1.jpg" alt="Brand Photography" class="portfolio-image">
+                            <div class="portfolio-overlay">
+                                <div class="portfolio-content">
+                                    <h4>Brand Photography</h4>
+                                    <p>Elegant product showcase</p>
+                                    <div class="portfolio-links">
+                                        <button class="view-btn" data-image="images/1.jpg">View</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portfolio-item large" data-category="product">
+                        <div class="portfolio-image-wrapper">
+                            <img src="images/2.jpg" alt="Creative Content" class="portfolio-image">
+                            <div class="portfolio-overlay">
+                                <div class="portfolio-content">
+                                    <h4>Creative Content</h4>
+                                    <p>Visual storytelling</p>
+                                    <div class="portfolio-links">
+                                        <button class="view-btn" data-image="images/2.jpg">View</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portfolio-item" data-category="event">
+                        <div class="portfolio-image-wrapper">
+                            <img src="images/3.jpg" alt="Event Coverage" class="portfolio-image">
+                            <div class="portfolio-overlay">
+                                <div class="portfolio-content">
+                                    <h4>Event Coverage</h4>
+                                    <p>Memorable moments</p>
+                                    <div class="portfolio-links">
+                                        <button class="view-btn" data-image="images/3.jpg">View</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portfolio-item tall" data-category="product">
+                        <div class="portfolio-image-wrapper">
+                            <img src="images/4.jpg" alt="Product Design" class="portfolio-image">
+                            <div class="portfolio-overlay">
+                                <div class="portfolio-content">
+                                    <h4>Product Design</h4>
+                                    <p>Aesthetic excellence</p>
+                                    <div class="portfolio-links">
+                                        <button class="view-btn" data-image="images/4.jpg">View</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portfolio-item" data-category="brand">
+                        <div class="portfolio-image-wrapper">
+                            <img src="images/5.jpg" alt="Brand Identity" class="portfolio-image">
+                            <div class="portfolio-overlay">
+                                <div class="portfolio-content">
+                                    <h4>Brand Identity</h4>
+                                    <p>Visual consistency</p>
+                                    <div class="portfolio-links">
+                                        <button class="view-btn" data-image="images/5.jpg">View</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portfolio-item" data-category="lifestyle">
+                        <div class="portfolio-image-wrapper">
+                            <img src="images/6.jpg" alt="Lifestyle Photography" class="portfolio-image">
+                            <div class="portfolio-overlay">
+                                <div class="portfolio-content">
+                                    <h4>Lifestyle Photography</h4>
+                                    <p>Authentic moments</p>
+                                    <div class="portfolio-links">
+                                        <button class="view-btn" data-image="images/6.jpg">View</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portfolio-item wide" data-category="lifestyle">
+                        <div class="portfolio-image-wrapper">
+                            <img src="images/7.jpg" alt="Lifestyle Moments" class="portfolio-image">
+                            <div class="portfolio-overlay">
+                                <div class="portfolio-content">
+                                    <h4>Lifestyle Moments</h4>
+                                    <p>Natural beauty</p>
+                                    <div class="portfolio-links">
+                                        <button class="view-btn" data-image="images/7.jpg">View</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portfolio-item" data-category="event">
+                        <div class="portfolio-image-wrapper">
+                            <img src="images/8.jpg" alt="Event Photography" class="portfolio-image">
+                            <div class="portfolio-overlay">
+                                <div class="portfolio-content">
+                                    <h4>Event Photography</h4>
+                                    <p>Special occasions</p>
+                                    <div class="portfolio-links">
+                                        <button class="view-btn" data-image="images/8.jpg">View</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portfolio-item" data-category="brand">
+                        <div class="portfolio-image-wrapper">
+                            <img src="images/9.jpg" alt="Brand Showcase" class="portfolio-image">
+                            <div class="portfolio-overlay">
+                                <div class="portfolio-content">
+                                    <h4>Brand Showcase</h4>
+                                    <p>Professional imagery</p>
+                                    <div class="portfolio-links">
+                                        <button class="view-btn" data-image="images/9.jpg">View</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Video Gallery Section -->
+            <div class="portfolio-section">
+                <h3 class="portfolio-subsection-title">Videography</h3>
+                <div class="video-gallery-modern">
+                    <!-- Hero Video - Left Side -->
+                    <div class="hero-video-container">
+                        <div class="hero-video-wrapper">
+                            <video id="hero-video" controls muted>
+                                <source src="video/h.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="hero-video-info">
+                                <div class="video-meta">
+                                    <span class="video-category">Brand Story</span>
+                                    <span class="video-duration">2:30</span>
+                                </div>
+                                <h4 id="hero-video-title">Dynamic Brand Storytelling</h4>
+                                <p id="hero-video-desc">Professional cinematography that captures your brand's essence</p>
+                                <div class="video-controls-custom">
+                                    <button class="audio-toggle-btn" id="audio-control">
+                                        <i class="audio-icon">🔇</i>
+                                        <span>Unmute</span>
+                                    </button>
+                                    <button class="fullscreen-btn" id="fullscreen-control">
+                                        <i class="fullscreen-icon">⛶</i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Video Playlist - Right Side (MOVED OUTSIDE hero-video-container) -->
+                    <div class="video-playlist">
+                        <h5 class="playlist-title">Featured Works</h5>
+                        <div class="playlist-items">
+                            <div class="playlist-item active" data-video="video/h.mp4" data-title="Dynamic Brand Storytelling" data-desc="Professional cinematography that captures your brand's essence" data-category="Brand Story" data-duration="2:30">
+                                <div class="playlist-thumbnail">
+                                    <video muted>
+                                        <source src="video/h.mp4" type="video/mp4">
+                                    </video>
+                                    <div class="play-overlay">
+                                        <div class="play-icon">▶</div>
+                                    </div>
+                                </div>
+                                <div class="playlist-info">
+                                    <h6>Brand Story</h6>
+                                    <p>Dynamic storytelling</p>
+                                    <span class="duration">2:30</span>
+                                </div>
+                            </div>
+                            
+                            <div class="playlist-item" data-video="video/a/a.mp4" data-title="Product Showcase Excellence" data-desc="Engaging product presentation with dynamic angles and lighting" data-category="Product" data-duration="1:45">
+                                <div class="playlist-thumbnail">
+                                    <video muted>
+                                        <source src="video/a/a.mp4" type="video/mp4">
+                                    </video>
+                                    <div class="play-overlay">
+                                        <div class="play-icon">▶</div>
+                                    </div>
+                                </div>
+                                <div class="playlist-info">
+                                    <h6>Product Showcase</h6>
+                                    <p>Dynamic presentation</p>
+                                    <span class="duration">1:45</span>
+                                </div>
+                            </div>
+                            
+                            <div class="playlist-item" data-video="video/b/b.mp4" data-title="Event Highlights Reel" data-desc="Memorable moments captured with cinematic quality and emotion" data-category="Events" data-duration="3:15">
+                                <div class="playlist-thumbnail">
+                                    <video muted>
+                                        <source src="video/b/b.mp4" type="video/mp4">
+                                    </video>
+                                    <div class="play-overlay">
+                                        <div class="play-icon">▶</div>
+                                    </div>
+                                </div>
+                                <div class="playlist-info">
+                                    <h6>Event Highlights</h6>
+                                    <p>Cinematic moments</p>
+                                    <span class="duration">3:15</span>
+                                </div>
+                            </div>
+                            
+                            <div class="playlist-item" data-video="video/c/c.mp4" data-title="Creative Visual Story" data-desc="Innovative visual storytelling with artistic direction" data-category="Creative" data-duration="2:00">
+                                <div class="playlist-thumbnail">
+                                    <video muted>
+                                        <source src="video/c/c.mp4" type="video/mp4">
+                                    </video>
+                                    <div class="play-overlay">
+                                        <div class="play-icon">▶</div>
+                                    </div>
+                                </div>
+                                <div class="playlist-info">
+                                    <h6>Creative Content</h6>
+                                    <p>Artistic storytelling</p>
+                                    <span class="duration">2:00</span>
+                                </div>
+                            </div>
+                            
+                            <div class="playlist-item" data-video="video/d/d.mp4" data-title="Social Media Content" data-desc="Engaging content optimized for social media platforms" data-category="Social" data-duration="1:30">
+                                <div class="playlist-thumbnail">
+                                    <video muted>
+                                        <source src="video/d/d.mp4" type="video/mp4">
+                                    </video>
+                                    <div class="play-overlay">
+                                        <div class="play-icon">▶</div>
+                                    </div>
+                                </div>
+                                <div class="playlist-info">
+                                    <h6>Social Media</h6>
+                                    <p>Platform optimized</p>
+                                    <span class="duration">1:30</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Testimonials -->
+            <div class="testimonials">
+                <h3 class="testimonials-title">Client Feedback</h3>
+                <div class="testimonials-grid">
+                    <div class="testimonial">
+                        <p>"Thehani's work exceeded our expectations. The attention to detail and creative vision brought our brand to life."</p>
+                        <cite>- Sarah M., Brand Manager</cite>
+                    </div>
+                    <div class="testimonial">
+                        <p>"Professional, creative, and delivered exactly what we envisioned. Highly recommend for any visual content needs."</p>
+                        <cite>- David L., Marketing Director</cite>
+                    </div>
+                    <div class="testimonial">
+                        <p>"The quality of work and turnaround time was exceptional. Will definitely work together again."</p>
+                        <cite>- Emma R., Creative Director</cite>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="section-title">Content Suite</h2>
+            <div class="services-grid">
+                <div class="service-item">
+                    <div class="service-icon">📸</div>
+                    <h3>Product Photography</h3>
+                    <p>High-quality product shots that showcase your brand with elegance and precision.</p>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">🎥</div>
+                    <h3>Video Production</h3>
+                    <p>Cinematic storytelling that brings your brand narrative to life with professional quality.</p>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">✨</div>
+                    <h3>Creative Direction</h3>
+                    <p>Strategic visual concepts that align with your brand identity and marketing goals.</p>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">📱</div>
+                    <h3>Social Media Content</h3>
+                    <p>Engaging visual content optimized for various social media platforms and audiences.</p>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">🎨</div>
+                    <h3>Brand Visuals</h3>
+                    <p>Cohesive visual identity that strengthens your brand presence across all touchpoints.</p>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">📊</div>
+                    <h3>Content Strategy</h3>
+                    <p>Data-driven content planning that maximizes engagement and achieves your objectives.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Let's Create Together</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Get in Touch</h3>
+                    <p>Ready to bring your vision to life? Let's discuss your project and create something extraordinary together.</p>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <strong>Email:</strong>
+                            <span>hello@sriola.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <strong>Phone:</strong>
+                            <span>+1 (555) 123-4567</span>
+                        </div>
+                        <div class="contact-item">
+                            <strong>Location:</strong>
+                            <span>Creative Studio, City</span>
+                        </div>
+                    </div>
+                </div>
+                <form class="contact-form">
+                    <div class="form-group">
+                        <input type="text" id="name" name="name" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <select id="service" name="service" required>
+                            <option value="">Select Service</option>
+                            <option value="photography">Product Photography</option>
+                            <option value="video">Video Production</option>
+                            <option value="creative">Creative Direction</option>
+                            <option value="social">Social Media Content</option>
+                            <option value="brand">Brand Visuals</option>
+                            <option value="strategy">Content Strategy</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" name="message" placeholder="Tell me about your project..." rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>Sriola</h3>
+                    <p>By Thehani</p>
+                    <p>Where ideas become visuals</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#portfolio">Portfolio</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Connect</h4>
+                    <p>hello@sriola.com</p>
+                    <p>+1 (555) 123-4567</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Sriola by Thehani. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Image Modal -->
+    <div id="imageModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <img id="modalImage" src="" alt="Portfolio Image">
+        </div>
+    </div>
+
+    <!-- Video Modal -->
+    <div id="videoModal" class="video-modal">
+        <div class="modal-content">
+            <span class="close-video">&times;</span>
+            <video id="modalVideo" controls>
+                <source src="" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="video-info">
+                <h4 id="modalVideoTitle"></h4>
+                <p id="modalVideoDesc"></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
