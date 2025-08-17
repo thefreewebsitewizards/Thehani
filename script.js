@@ -360,14 +360,58 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Create image modal
     imageModal = createImageModal();
+    
+    // Collect all portfolio images
+    collectPortfolioImages();
+    
+    // Setup navigation event listeners
+    setupModalNavigation();
 });
+
+function collectPortfolioImages() {
+    modalImages = [];
+    const portfolioItems = document.querySelectorAll('.portfolio-item');
+    portfolioItems.forEach((item, index) => {
+        const img = item.querySelector('.portfolio-image');
+        const title = item.querySelector('.portfolio-content h4');
+        if (img && title) {
+            modalImages.push({
+                src: img.src,
+                alt: img.alt,
+                title: title.textContent,
+                index: index
+            });
+        }
+    });
+}
+
+function setupModalNavigation() {
+    if (!imageModal) return;
+    
+    const prevBtn = imageModal.querySelector('.modal-prev');
+    const nextBtn = imageModal.querySelector('.modal-next');
+    
+    prevBtn.addEventListener('click', () => navigateModal('prev'));
+    nextBtn.addEventListener('click', () => navigateModal('next'));
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (imageModal.style.display === 'flex') {
+            if (e.key === 'ArrowLeft') navigateModal('prev');
+            if (e.key === 'ArrowRight') navigateModal('next');
+            if (e.key === 'Escape') closeImageModal();
+        }
+    });
+}
 
 function showImageModal(src, alt) {
     if (!imageModal) return;
     
-    const modalImg = imageModal.querySelector('.modal-image');
-    modalImg.src = src;
-    modalImg.alt = alt;
+    // Find current image index
+    currentModalIndex = modalImages.findIndex(img => img.src === src);
+    if (currentModalIndex === -1) currentModalIndex = 0;
+    
+    updateModalImage();
     
     imageModal.style.display = 'flex';
     document.body.style.overflow = 'hidden';
@@ -381,6 +425,26 @@ function showImageModal(src, alt) {
     };
 }
 
+function updateModalImage() {
+    if (!imageModal || modalImages.length === 0) return;
+    
+    const modalImg = imageModal.querySelector('.modal-image');
+    const currentImage = modalImages[currentModalIndex];
+    
+    modalImg.src = currentImage.src;
+    modalImg.alt = currentImage.alt;
+    
+    // Update navigation button states
+    const prevBtn = imageModal.querySelector('.modal-prev');
+    const nextBtn = imageModal.querySelector('.modal-next');
+    
+    prevBtn.style.opacity = currentModalIndex === 0 ? '0.5' : '1';
+    nextBtn.style.opacity = currentModalIndex === modalImages.length - 1 ? '0.5' : '1';
+    
+    prevBtn.disabled = currentModalIndex === 0;
+    nextBtn.disabled = currentModalIndex === modalImages.length - 1;
+}
+
 function closeImageModal() {
     if (imageModal) {
         imageModal.style.display = 'none';
@@ -389,7 +453,15 @@ function closeImageModal() {
 }
 
 function navigateModal(direction) {
-    // Modal navigation logic here
+    if (modalImages.length === 0) return;
+    
+    if (direction === 'next' && currentModalIndex < modalImages.length - 1) {
+        currentModalIndex++;
+    } else if (direction === 'prev' && currentModalIndex > 0) {
+        currentModalIndex--;
+    }
+    
+    updateModalImage();
 }
 
 // Contact Form

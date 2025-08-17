@@ -1200,46 +1200,56 @@ h1, h2, h3 {
     transform: scale(1.1);
 }
 
+/* Modal Navigation Buttons */
 .modal-nav {
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
     width: 100%;
     display: flex;
     justify-content: space-between;
+    padding: 0 20px;
     pointer-events: none;
+    z-index: 1002;
 }
 
 .modal-prev,
 .modal-next {
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(212, 175, 55, 0.9);
+    color: white;
     border: none;
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
+    font-size: 1.5rem;
     cursor: pointer;
     transition: all 0.3s ease;
     pointer-events: auto;
     display: flex;
     align-items: center;
     justify-content: center;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .modal-prev:hover,
 .modal-next:hover {
-    background: white;
+    background: rgba(212, 175, 55, 1);
     transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
 }
 
-.modal-prev {
-    margin-left: -25px;
+.modal-prev:disabled,
+.modal-next:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
 }
 
-.modal-next {
-    margin-right: -25px;
+.modal-prev:disabled:hover,
+.modal-next:disabled:hover {
+    background: rgba(212, 175, 55, 0.9);
+    transform: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 /* Audio Indicator */
@@ -1601,15 +1611,11 @@ select:focus {
     .modal-next {
         width: 40px;
         height: 40px;
-        font-size: 16px;
+        font-size: 1.2rem;
     }
-
-    .modal-prev {
-        margin-left: -20px;
-    }
-
-    .modal-next {
-        margin-right: -20px;
+    
+    .modal-nav {
+        padding: 0 10px;
     }
 
     .audio-indicator {
