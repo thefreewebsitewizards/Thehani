@@ -330,6 +330,112 @@ class ModernVideoGallery {
     }
 }
 
+// Video Grid Gallery with Modal Functionality
+class VideoGridGallery {
+    constructor() {
+        this.videoItems = document.querySelectorAll('.video-item-mobile');
+        this.modal = null;
+        this.currentVideoIndex = 0;
+        
+        if (this.videoItems.length > 0) {
+            this.init();
+        }
+    }
+    
+    init() {
+        this.createModal();
+        this.setupEventListeners();
+        this.setupVideoHoverEffects();
+    }
+    
+    createModal() {
+        this.modal = document.createElement('div');
+        this.modal.className = 'video-modal-mobile';
+        this.modal.innerHTML = `
+            <div class="video-modal-content-mobile">
+                <button class="video-modal-close-mobile">&times;</button>
+                <video class="video-modal-player-mobile" controls>
+                    <source src="" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="video-modal-info-mobile">
+                    <h4 class="video-modal-title-mobile"></h4>
+                    <p class="video-modal-desc-mobile"></p>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(this.modal);
+    }
+    
+    setupEventListeners() {
+        // Video item clicks
+        this.videoItems.forEach((item, index) => {
+            item.addEventListener('click', () => {
+                this.openModal(index);
+            });
+        });
+        
+        // Modal close
+        const closeBtn = this.modal.querySelector('.video-modal-close-mobile');
+        closeBtn.addEventListener('click', () => this.closeModal());
+        
+        // Click outside to close
+        this.modal.addEventListener('click', (e) => {
+            if (e.target === this.modal) {
+                this.closeModal();
+            }
+        });
+    }
+    
+    setupVideoHoverEffects() {
+        this.videoItems.forEach(item => {
+            const video = item.querySelector('video');
+            if (video) {
+                item.addEventListener('mouseenter', () => {
+                    video.play().catch(e => console.log('Preview play prevented:', e));
+                });
+                
+                item.addEventListener('mouseleave', () => {
+                    video.pause();
+                    video.currentTime = 0;
+                });
+            }
+        });
+    }
+    
+    openModal(index) {
+        this.currentVideoIndex = index;
+        this.updateModalContent();
+        this.modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    
+    closeModal() {
+        this.modal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+        
+        // Pause video when closing
+        const video = this.modal.querySelector('.video-modal-player-mobile');
+        video.pause();
+    }
+    
+    updateModalContent() {
+        const currentItem = this.videoItems[this.currentVideoIndex];
+        const video = this.modal.querySelector('.video-modal-player-mobile source');
+        const title = this.modal.querySelector('.video-modal-title-mobile');
+        const desc = this.modal.querySelector('.video-modal-desc-mobile');
+        
+        video.src = currentItem.dataset.video;
+        title.textContent = currentItem.dataset.title;
+        desc.textContent = currentItem.dataset.desc;
+        
+        // Reload video with new source and enable audio
+        const videoElement = this.modal.querySelector('.video-modal-player-mobile');
+        videoElement.muted = false; // Enable audio for modal playback
+        videoElement.load();
+    }
+}
+
 // Image Modal Functions
 function createImageModal() {
     const modal = document.createElement('div');
@@ -351,22 +457,6 @@ function createImageModal() {
 let imageModal = null;
 let currentModalIndex = 0;
 let modalImages = [];
-
-// Initialize on DOM load
-document.addEventListener('DOMContentLoaded', () => {
-    new PortfolioFilter();
-    new ModernVideoGallery();
-    initContactForm();
-    
-    // Create image modal
-    imageModal = createImageModal();
-    
-    // Collect all portfolio images
-    collectPortfolioImages();
-    
-    // Setup navigation event listeners
-    setupModalNavigation();
-});
 
 function collectPortfolioImages() {
     modalImages = [];
@@ -393,15 +483,6 @@ function setupModalNavigation() {
     
     prevBtn.addEventListener('click', () => navigateModal('prev'));
     nextBtn.addEventListener('click', () => navigateModal('next'));
-    
-    // Keyboard navigation
-    document.addEventListener('keydown', (e) => {
-        if (imageModal.style.display === 'flex') {
-            if (e.key === 'ArrowLeft') navigateModal('prev');
-            if (e.key === 'ArrowRight') navigateModal('next');
-            if (e.key === 'Escape') closeImageModal();
-        }
-    });
 }
 
 function showImageModal(src, alt) {
@@ -486,57 +567,42 @@ function initContactForm() {
     }
 }
 
-// Notification System
+// Notification function
 function showNotification(message, type = 'info') {
+    // Remove existing notification
+    const existing = document.querySelector('.notification');
+    if (existing) existing.remove();
+    
+    // Create notification
     const notification = document.createElement('div');
-    notification.className = `notification ${type}`;
+    notification.className = 'notification';
     notification.textContent = message;
     
-    const colors = {
-        success: '#28a745',
-        error: '#dc3545',
-        info: '#17a2b8',
-        warning: '#ffc107'
-    };
+    const bgColor = type === 'error' ? 'rgba(220, 53, 69, 0.9)' : 
+                   type === 'success' ? 'rgba(40, 167, 69, 0.9)' : 'rgba(0, 0, 0, 0.9)';
     
     notification.style.cssText = `
         position: fixed;
         top: 20px;
         right: 20px;
-        background: ${colors[type] || colors.info};
+        background: ${bgColor};
         color: white;
-        padding: 15px 20px;
-        border-radius: 5px;
+        padding: 12px 20px;
+        border-radius: 25px;
         font-size: 14px;
         font-weight: 500;
         z-index: 1000;
         animation: slideInRight 0.3s ease;
-        max-width: 300px;
-        word-wrap: break-word;
     `;
     
     document.body.appendChild(notification);
     
+    // Auto remove
     setTimeout(() => {
         notification.style.animation = 'slideOutRight 0.3s ease';
         setTimeout(() => notification.remove(), 300);
-    }, 4000);
+    }, 3000);
 }
-
-// Keyboard Navigation
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-        closeImageModal();
-    }
-    
-    if (imageModal && imageModal.style.display === 'flex') {
-        if (e.key === 'ArrowLeft') {
-            navigateModal(-1);
-        } else if (e.key === 'ArrowRight') {
-            navigateModal(1);
-        }
-    }
-});
 
 // Animation Styles
 const notificationStyles = document.createElement('style');
@@ -553,16 +619,42 @@ notificationStyles.textContent = `
 `;
 document.head.appendChild(notificationStyles);
 
+// Keyboard Navigation
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        closeImageModal();
+        // Close video modal if it exists
+        const videoModal = document.querySelector('.video-modal-mobile.active');
+        if (videoModal) {
+            const videoGallery = new VideoGridGallery();
+            videoGallery.closeModal();
+        }
+    }
+    
+    if (imageModal && imageModal.style.display === 'flex') {
+        if (e.key === 'ArrowLeft') navigateModal('prev');
+        if (e.key === 'ArrowRight') navigateModal('next');
+    }
+});
+
 // Initialize everything when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('Initializing Modern Video Gallery...');
+    console.log('Initializing application...');
     
-    // Initialize the modern video gallery
-    const videoGallery = new ModernVideoGallery();
+    // Initialize classes
+    new PortfolioFilter();
+    new ModernVideoGallery();
+    new VideoGridGallery();
+    initContactForm();
     
-    if (videoGallery.heroVideo && videoGallery.playlistItems.length > 0) {
-        console.log('Video gallery initialized successfully');
-    } else {
-        console.log('Video gallery elements not found');
-    }
+    // Create image modal
+    imageModal = createImageModal();
+    
+    // Collect all portfolio images
+    collectPortfolioImages();
+    
+    // Setup navigation event listeners
+    setupModalNavigation();
+    
+    console.log('Application initialized successfully');
 });
