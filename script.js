@@ -658,3 +658,118 @@ document.addEventListener('DOMContentLoaded', () => {
     
     console.log('Application initialized successfully');
 });
+
+// Phone Video Gallery Class
+class PhoneVideoGallery {
+    constructor() {
+        this.videoItems = document.querySelectorAll('.phone-video-item');
+        this.modal = document.querySelector('.video-modal-phone');
+        this.init();
+    }
+
+    init() {
+        this.createModalIfNotExists();
+        this.setupEventListeners();
+    }
+
+    createModalIfNotExists() {
+        if (!this.modal) {
+            this.modal = document.createElement('div');
+            this.modal.className = 'video-modal-phone';
+            this.modal.innerHTML = `
+                <div class="video-modal-content-phone">
+                    <button class="video-modal-close-phone">&times;</button>
+                    <video class="video-modal-player-phone" controls>
+                        <source src="" type="video/mp4">
+                    </video>
+                    <div class="video-modal-info-phone">
+                        <h3 class="video-modal-title-phone"></h3>
+                        <p class="video-modal-desc-phone"></p>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(this.modal);
+        }
+    }
+
+    setupEventListeners() {
+        // Video item clicks
+        this.videoItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.openVideoModal(item);
+            });
+
+            // Hover effects for video preview
+            const video = item.querySelector('video');
+            if (video) {
+                item.addEventListener('mouseenter', () => {
+                    video.play().catch(e => console.log('Video play failed:', e));
+                });
+
+                item.addEventListener('mouseleave', () => {
+                    video.pause();
+                    video.currentTime = 0;
+                });
+            }
+        });
+
+        // Modal close events
+        const closeBtn = this.modal.querySelector('.video-modal-close-phone');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => this.closeVideoModal());
+        }
+
+        this.modal.addEventListener('click', (e) => {
+            if (e.target === this.modal) {
+                this.closeVideoModal();
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.modal.classList.contains('active')) {
+                this.closeVideoModal();
+            }
+        });
+    }
+
+    openVideoModal(item) {
+        const videoSrc = item.dataset.video;
+        const title = item.dataset.title;
+        const desc = item.dataset.desc;
+
+        const video = this.modal.querySelector('.video-modal-player-phone');
+        const titleEl = this.modal.querySelector('.video-modal-title-phone');
+        const descEl = this.modal.querySelector('.video-modal-desc-phone');
+
+        if (video && titleEl && descEl) {
+            video.src = videoSrc;
+            titleEl.textContent = title;
+            descEl.textContent = desc;
+
+            this.modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+
+            // Auto-play video in modal
+            video.play().catch(e => console.log('Modal video play failed:', e));
+        }
+    }
+
+    closeVideoModal() {
+        const video = this.modal.querySelector('.video-modal-player-phone');
+        if (video) {
+            video.pause();
+            video.currentTime = 0;
+        }
+
+        this.modal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+}
+
+// Initialize Phone Video Gallery
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize Phone Video Gallery
+    new PhoneVideoGallery();
+});
