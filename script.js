@@ -768,8 +768,174 @@ class PhoneVideoGallery {
     }
 }
 
-// Initialize Phone Video Gallery
+// Update the DOMContentLoaded event listener (around line 772)
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize Phone Video Gallery
     new PhoneVideoGallery();
+    
+    // Initialize See More buttons - ADD THIS LINE
+    initSeeMoreButtons();
+});
+
+// Add at the end of the file
+
+// Portfolio and Testimonials See More functionality
+function initSeeMoreButtons() {
+    const portfolioBtn = document.getElementById('portfolio-see-more');
+    const portfolioMinBtn = document.getElementById('portfolio-minimize');
+    const testimonialsBtn = document.getElementById('seeAllReviews');
+    const testimonialsMinBtn = document.getElementById('testimonials-minimize');
+    const videoBtn = document.getElementById('video-see-more');
+    const videoMinBtn = document.getElementById('video-minimize');
+    
+    if (window.innerWidth > 768) {
+        // Desktop behavior
+        if (portfolioBtn && portfolioMinBtn) {
+            portfolioBtn.addEventListener('click', function() {
+                const hiddenItems = document.querySelectorAll('.hidden-portfolio');
+                hiddenItems.forEach(item => {
+                    item.style.display = 'block';
+                    item.classList.remove('hidden-portfolio');
+                    item.classList.add('expanded-portfolio');
+                });
+                this.style.display = 'none';
+                portfolioMinBtn.style.display = 'block';
+            });
+            
+            portfolioMinBtn.addEventListener('click', function() {
+                const expandedItems = document.querySelectorAll('.expanded-portfolio');
+                expandedItems.forEach(item => {
+                    item.style.display = 'none';
+                    item.classList.add('hidden-portfolio');
+                    item.classList.remove('expanded-portfolio');
+                });
+                this.style.display = 'none';
+                portfolioBtn.style.display = 'block';
+            });
+        }
+        
+        if (testimonialsBtn && testimonialsMinBtn) {
+            testimonialsBtn.addEventListener('click', function() {
+                const hiddenItems = document.querySelectorAll('.hidden-testimonial');
+                hiddenItems.forEach(item => {
+                    item.style.display = 'block';
+                    item.classList.remove('hidden-testimonial');
+                    item.classList.add('expanded-testimonial');
+                });
+                this.style.display = 'none';
+                testimonialsMinBtn.style.display = 'block';
+            });
+            
+            testimonialsMinBtn.addEventListener('click', function() {
+                const expandedItems = document.querySelectorAll('.expanded-testimonial');
+                expandedItems.forEach(item => {
+                    item.style.display = 'none';
+                    item.classList.add('hidden-testimonial');
+                    item.classList.remove('expanded-testimonial');
+                });
+                this.style.display = 'none';
+                testimonialsBtn.style.display = 'block';
+            });
+        }
+        
+        if (videoBtn && videoMinBtn) {
+            videoBtn.addEventListener('click', function() {
+                const hiddenItems = document.querySelectorAll('.phone-video-item:nth-child(n+5)');
+                hiddenItems.forEach(item => {
+                    item.style.display = 'block';
+                    item.classList.add('expanded-video');
+                });
+                this.style.display = 'none';
+                videoMinBtn.style.display = 'block';
+            });
+            
+            videoMinBtn.addEventListener('click', function() {
+                const expandedItems = document.querySelectorAll('.expanded-video');
+                expandedItems.forEach(item => {
+                    item.style.display = 'none';
+                    item.classList.remove('expanded-video');
+                });
+                this.style.display = 'none';
+                videoBtn.style.display = 'block';
+            });
+        }
+    } else {
+        // Mobile behavior
+        if (portfolioBtn && portfolioMinBtn) {
+            portfolioBtn.addEventListener('click', function() {
+                const hiddenItems = document.querySelectorAll('.portfolio-item:nth-child(n+7)');
+                hiddenItems.forEach(item => {
+                    item.style.display = 'block';
+                    item.classList.add('show-mobile');
+                    item.classList.add('expanded-portfolio-mobile');
+                });
+                this.style.display = 'none';
+                portfolioMinBtn.style.display = 'block';
+            });
+            
+            portfolioMinBtn.addEventListener('click', function() {
+                const expandedItems = document.querySelectorAll('.expanded-portfolio-mobile');
+                expandedItems.forEach(item => {
+                    item.style.display = 'none';
+                    item.classList.remove('show-mobile');
+                    item.classList.remove('expanded-portfolio-mobile');
+                });
+                this.style.display = 'none';
+                portfolioBtn.style.display = 'block';
+            });
+        }
+        
+        if (videoBtn && videoMinBtn) {
+            videoBtn.addEventListener('click', function() {
+                const hiddenItems = document.querySelectorAll('.phone-video-item:nth-child(n+5)');
+                hiddenItems.forEach(item => {
+                    item.style.display = 'block';
+                    item.classList.add('show-mobile');
+                    item.classList.add('expanded-video-mobile');
+                });
+                this.style.display = 'none';
+                videoMinBtn.style.display = 'block';
+            });
+            
+            videoMinBtn.addEventListener('click', function() {
+                const expandedItems = document.querySelectorAll('.expanded-video-mobile');
+                expandedItems.forEach(item => {
+                    item.style.display = 'none';
+                    item.classList.remove('show-mobile');
+                    item.classList.remove('expanded-video-mobile');
+                });
+                this.style.display = 'none';
+                videoBtn.style.display = 'block';
+            });
+        }
+        
+        if (testimonialsBtn && testimonialsMinBtn) {
+            testimonialsBtn.addEventListener('click', function() {
+                const hiddenItems = document.querySelectorAll('.testimonial:nth-child(n+4)');
+                hiddenItems.forEach(item => {
+                    item.style.display = 'block';
+                    item.classList.add('show-mobile');
+                    item.classList.add('expanded-testimonial-mobile');
+                });
+                this.style.display = 'none';
+                testimonialsMinBtn.style.display = 'block';
+            });
+            
+            testimonialsMinBtn.addEventListener('click', function() {
+                const expandedItems = document.querySelectorAll('.expanded-testimonial-mobile');
+                expandedItems.forEach(item => {
+                    item.style.display = 'none';
+                    item.classList.remove('show-mobile');
+                    item.classList.remove('expanded-testimonial-mobile');
+                });
+                this.style.display = 'none';
+                testimonialsBtn.style.display = 'block';
+            });
+        }
+    }
+}
+
+// Re-initialize on window resize
+window.addEventListener('resize', function() {
+    initSeeMoreButtons();
 });
