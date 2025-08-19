@@ -248,6 +248,7 @@ h1, h2, h3 {
     box-shadow: 0 8px 25px rgba(139, 115, 85, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
+    aspect-ratio: 1;
 }
 
 .portfolio-item:hover {
@@ -257,8 +258,9 @@ h1, h2, h3 {
 
 .portfolio-thumbnail {
     width: 100%;
-    height: 200px;
-    object-fit: cover;
+    height: 100%;
+    object-fit: contain;
+    background: #faf9f7;
     transition: transform 0.3s ease;
 }
 
@@ -595,7 +597,9 @@ h1, h2, h3 {
     }
     
     .portfolio-thumbnail {
-        height: 150px;
+        height: 100%;
+        object-fit: contain;
+        background: #faf9f7;
     }
     
     .hero {
@@ -1123,10 +1127,10 @@ select:focus {
     justify-content: center;
     align-items: flex-start;
     gap: 1.5rem;
-    max-width: 1100px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 1rem;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
 }
 
 .phone-video-item {
@@ -1199,6 +1203,7 @@ select:focus {
     text-align: center;
     margin-top: 0.8rem;
     width: 140px;
+    display: none;
 }
 
 .video-info h4 {
@@ -1369,9 +1374,26 @@ select:focus {
     }
 }
 
+
+
 @media (max-width: 768px) {
-    .video-portfolio-title {
-        font-size: 2.5rem;
+    .phone-video-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        justify-items: center;
+        gap: 1.5rem;
+        max-width: 400px;
+    }
+    
+    /* Make the 7th video span both columns and center it */
+    .phone-video-item:nth-child(7) {
+        grid-column: 1 / -1;
+        justify-self: center;
+    }
+    
+    .phone-frame {
+        width: 120px;
+        height: 240px;
     }
 }
 
@@ -1401,6 +1423,25 @@ select:focus {
     
     .video-portfolio-title {
         font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .phone-video-grid {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 300px;
+        gap: 1rem;
+    }
+    
+    /* Keep the 7th video centered on very small screens too */
+    .phone-video-item:nth-child(7) {
+        grid-column: 1 / -1;
+        justify-self: center;
+    }
+    
+    .phone-frame {
+        width: 100px;
+        height: 200px;
     }
 }
 
