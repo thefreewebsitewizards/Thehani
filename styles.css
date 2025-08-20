@@ -588,6 +588,78 @@ h1, h2, h3 {
     line-height: 1.6;
 }
 
+/* Brands Section */
+.brands {
+    padding: 6rem 0;
+    background: linear-gradient(135deg, #f7f5f3 0%, #ede4d3 100%);
+    overflow: hidden;
+}
+
+.brands-subtitle {
+    text-align: center;
+    color: #6b5b73;
+    font-size: 1.1rem;
+    margin-bottom: 4rem;
+    font-style: italic;
+}
+
+.brands-slider-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    mask: linear-gradient(90deg, transparent, white 10%, white 90%, transparent);
+    -webkit-mask: linear-gradient(90deg, transparent, white 10%, white 90%, transparent);
+}
+
+.brands-slider {
+    display: flex;
+    animation: slideLeft 45s linear infinite;
+    width: calc(200px * 25); /* 25 slides * 200px each */
+}
+
+.brand-slide {
+    flex: 0 0 200px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.8);
+    margin: 0 10px;
+    border-radius: 12px;
+    border: 1px solid rgba(196, 164, 132, 0.15);
+    box-shadow: 0 2px 10px rgba(139, 115, 85, 0.08);
+    transition: transform 0.8s ease;
+}
+
+.brand-slide:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(139, 115, 85, 0.2);
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.brand-img {
+    max-width: 120px;
+    max-height: 60px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    filter: grayscale(20%) opacity(0.8);
+    transition: filter 0.3s ease;
+}
+
+.brand-slide:hover .brand-img {
+    filter: grayscale(0%) opacity(1);
+}
+
+@keyframes slideLeft {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
 /* Contact Section */
 .contact {
     padding: 6rem 0;
@@ -1763,6 +1835,38 @@ select:focus {
         grid-template-columns: repeat(2, 1fr);
         max-width: 300px;
         gap: 1rem;
+    }
+    
+    .brand-slide {
+        flex: 0 0 150px;
+        height: 70px;
+        margin: 0 5px;
+    }
+    
+    .brand-img {
+        max-width: 80px;
+        max-height: 40px;
+    }
+    
+    .brands-slider {
+        animation: slideRight 30s linear infinite;
+    }
+}
+
+@media (max-width: 768px) {
+    .brand-slide {
+        flex: 0 0 170px;
+        height: 80px;
+        margin: 0 8px;
+    }
+    
+    .brand-img {
+        max-width: 100px;
+        max-height: 50px;
+    }
+    
+    .brands-slider {
+        animation: slideLeft 50s linear infinite;
     }
     
     /* Keep the 7th video centered on very small screens too */
