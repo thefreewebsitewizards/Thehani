@@ -406,6 +406,15 @@ h1, h2, h3 {
     background: #f5f1eb;
 }
 
+.portfolio-subsection-title {
+    font-size: 2rem;
+    text-align: center;
+    color: #8b7355;
+    margin-bottom: 2rem;
+    font-weight: 400;
+    font-family: 'Playfair Display', serif;
+}
+
 .portfolio-gallery {
     margin-bottom: 4rem;
 }
