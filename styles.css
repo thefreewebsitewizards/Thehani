@@ -1589,10 +1589,10 @@ select:focus {
     font-weight: 300;
 }
 
-/* Desktop layout - 4 videos in first row, 3 in second row with alternating positions */
+/* Desktop layout - 4 videos per row */
 .phone-video-grid {
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     justify-items: center;
     gap: 1rem;
     max-width: 1200px;
@@ -1608,41 +1608,73 @@ select:focus {
     flex: 0 0 auto;
 }
 
-/* First row videos - positions 1, 3, 5, 7 */
+/* Row 1: Videos 1-4 */
 .phone-video-item:nth-child(1) {
     grid-column: 1;
     grid-row: 1;
 }
 
 .phone-video-item:nth-child(2) {
-    grid-column: 3;
+    grid-column: 2;
     grid-row: 1;
 }
 
 .phone-video-item:nth-child(3) {
-    grid-column: 5;
+    grid-column: 3;
     grid-row: 1;
 }
 
 .phone-video-item:nth-child(4) {
-    grid-column: 7;
+    grid-column: 4;
     grid-row: 1;
 }
 
-/* Second row videos - positions 2, 4, 6 (alternating between first row) */
+/* Row 2: Videos 5-8 */
 .phone-video-item:nth-child(5) {
-    grid-column: 2;
+    grid-column: 1;
     grid-row: 2;
 }
 
 .phone-video-item:nth-child(6) {
-    grid-column: 4;
+    grid-column: 2;
     grid-row: 2;
 }
 
 .phone-video-item:nth-child(7) {
-    grid-column: 6;
+    grid-column: 3;
     grid-row: 2;
+}
+
+.phone-video-item:nth-child(8) {
+    grid-column: 4;
+    grid-row: 2;
+}
+
+/* Row 3: Videos 9-12 */
+.phone-video-item:nth-child(9) {
+    grid-column: 1;
+    grid-row: 3;
+}
+
+.phone-video-item:nth-child(10) {
+    grid-column: 2;
+    grid-row: 3;
+}
+
+.phone-video-item:nth-child(11) {
+    grid-column: 3;
+    grid-row: 3;
+}
+
+.phone-video-item:nth-child(12) {
+    grid-column: 4;
+    grid-row: 3;
+}
+
+/* Additional videos beyond 12 - flexible positioning */
+.phone-video-item:nth-child(n+13) {
+    grid-column: auto;
+    grid-row: auto;
 }
 
 .phone-video-item:hover {
@@ -1652,16 +1684,17 @@ select:focus {
 /* Phone Frame Styling */
 .phone-frame {
     position: relative;
-    width: 140px;
-    height: 280px;
+    width: 160px;
+    height: 300px;
     background: linear-gradient(145deg, #2c2c2c, #1a1a1a);
     border-radius: 25px;
-    padding: 5px;
+    padding: 6px;
     box-shadow: 
         0 10px 20px rgba(0, 0, 0, 0.3),
         0 4px 8px rgba(0, 0, 0, 0.2),
         inset 0 1px 2px rgba(255, 255, 255, 0.1);
     transition: all 0.3s ease;
+    box-sizing: border-box;
 }
 
 .phone-video-item:hover .phone-frame {
@@ -1677,25 +1710,29 @@ select:focus {
     width: 100%;
     height: 100%;
     background: #000;
-    border-radius: 20px;
+    border-radius: 18px;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .phone-screen video {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 20px;
+    border-radius: 18px;
+    display: block;
 }
 
 /* Phone Notch */
 .phone-notch {
     position: absolute;
-    top: 8px;
+    top: 6px;
     left: 50%;
     transform: translateX(-50%);
-    width: 40px;
-    height: 4px;
+    width: 35px;
+    height: 3px;
     background: #1a1a1a;
     border-radius: 2px;
     z-index: 10;
@@ -1705,7 +1742,7 @@ select:focus {
 .video-info {
     text-align: center;
     margin-top: 0.8rem;
-    width: 140px;
+    width: 160px;
     display: none;
 }
 
@@ -1844,12 +1881,12 @@ select:focus {
     }
     
     .phone-frame {
-        width: 120px;
-        height: 240px;
+        width: 140px;
+        height: 280px;
     }
     
     .video-info {
-        width: 120px;
+        width: 140px;
     }
 }
 
@@ -1860,12 +1897,12 @@ select:focus {
     }
     
     .phone-frame {
-        width: 100px;
-        height: 200px;
+        width: 120px;
+        height: 240px;
     }
     
     .video-info {
-        width: 100px;
+        width: 120px;
     }
     
     .video-info h4 {
@@ -1879,75 +1916,91 @@ select:focus {
 
 
 
-/* Mobile layout - keep the 2-2-2-1 arrangement */
+/* Mobile layout - 2 videos per row same as desktop */
 @media (max-width: 768px) {
     .phone-video-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        justify-items: center;
-        gap: 1.5rem;
-        max-width: 400px;
+        justify-items: start;
+        gap: 0.5rem;
+        max-width: 200px;
+        margin: 0;
+        margin-left: 0.8rem;
+        padding: 0;
     }
     
-    /* Reset desktop grid positioning for mobile */
-    .phone-video-item:nth-child(1),
-    .phone-video-item:nth-child(2),
-    .phone-video-item:nth-child(3),
-    .phone-video-item:nth-child(4),
-    .phone-video-item:nth-child(5),
-    .phone-video-item:nth-child(6),
-    .phone-video-item:nth-child(7) {
-        grid-column: auto;
-        grid-row: auto;
-    }
-    
-    /* Make the 7th video span both columns and center it */
-    .phone-video-item:nth-child(7) {
-        grid-column: 1 / -1;
-        justify-self: center;
+    /* Show only first 4 videos in 2x2 grid on mobile */
+    .phone-video-item:nth-child(n+5) {
+        display: none;
     }
     
     .phone-frame {
-        width: 120px;
-        height: 240px;
+        width: 90px;
+        height: 180px;
+        padding: 2px;
     }
-}
 
-@media (max-width: 600px) {
-    .phone-video-grid {
-        flex-direction: column;
-        align-items: center;
-        gap: 2rem;
-    }
-    
-    .phone-frame {
-        width: 160px;
-        height: 320px;
-    }
-    
     .video-info {
-        width: 160px;
+        width: 90px;
     }
     
     .video-info h4 {
-        font-size: 1rem;
+        font-size: 0.7rem;
+        margin-bottom: 0.1rem;
     }
     
     .video-info p {
-        font-size: 0.85rem;
+        font-size: 0.6rem;
     }
     
     .video-portfolio-title {
-        font-size: 2rem;
+        font-size: 1.8rem;
+        margin-bottom: 1.2rem;
+    }
+    
+    .video-portfolio-subtitle {
+        font-size: 0.85rem;
+        margin-bottom: 1.5rem;
     }
 }
 
 @media (max-width: 480px) {
     .phone-video-grid {
-        grid-template-columns: repeat(2, 1fr);
-        max-width: 300px;
-        gap: 1rem;
+        gap: 0.4rem;
+        max-width: 170px;
+        margin: 0;
+        margin-left: 0.6rem;
+        padding: 0;
     }
+    
+    .phone-frame {
+        width: 75px;
+        height: 150px;
+        padding: 1px;
+    }
+
+    .video-info {
+        width: 75px;
+    }
+    
+    .video-info h4 {
+        font-size: 0.65rem;
+    }
+    
+    .video-info p {
+        font-size: 0.55rem;
+    }
+    
+    .video-portfolio-title {
+        font-size: 1.6rem;
+        margin-bottom: 1rem;
+    }
+    
+    .video-portfolio-subtitle {
+        font-size: 0.75rem;
+        margin-bottom: 1.2rem;
+    }
+}
     
     .brand-slide {
         flex: 0 0 150px;
@@ -1985,11 +2038,6 @@ select:focus {
     .phone-video-item:nth-child(7) {
         grid-column: 1 / -1;
         justify-self: center;
-    }
-    
-    .phone-frame {
-        width: 100px;
-        height: 200px;
     }
 }
 
