@@ -63,10 +63,7 @@
                     </a>
                 </div>
                     
-                    <div class="video-buttons">
-                        <button class="see-more-btn video-see-more-btn" id="videoSeeMoreBtn">See All Videos</button>
-                        <button class="see-more-btn video-minimize-btn" id="videoMinimizeBtn" style="display: none;">Show Less</button>
-                    </div>
+    
                 </div>
             </div>
         </section>
@@ -83,6 +80,8 @@
             <div class="portfolio-marquee-gallery">
                 <!-- First Row - Left to Right -->
                 <div class="marquee-row marquee-left-to-right">
+                    <button class="marquee-nav prev" aria-label="Previous images">‹</button>
+                    <button class="marquee-nav next" aria-label="Next images">›</button>
                     <div class="marquee-content">
                         <img src="images/a.jpg" alt="Portfolio Image" class="marquee-image">
                         <img src="images/b.jpg" alt="Portfolio Image" class="marquee-image">
@@ -108,6 +107,8 @@
                 
                 <!-- Second Row - Right to Left -->
                 <div class="marquee-row marquee-right-to-left">
+                    <button class="marquee-nav prev" aria-label="Previous images">‹</button>
+                    <button class="marquee-nav next" aria-label="Next images">›</button>
                     <div class="marquee-content">
                         <img src="images/6.jpg" alt="Portfolio Image" class="marquee-image">
                         <img src="images/7.jpg" alt="Portfolio Image" class="marquee-image">
@@ -133,6 +134,8 @@
                 
                 <!-- Third Row - Left to Right -->
                 <div class="marquee-row marquee-left-to-right">
+                    <button class="marquee-nav prev" aria-label="Previous images">‹</button>
+                    <button class="marquee-nav next" aria-label="Next images">›</button>
                     <div class="marquee-content">
                         <img src="images/15.jpg" alt="Portfolio Image" class="marquee-image">
                         <img src="images/16.jpg" alt="Portfolio Image" class="marquee-image">
@@ -158,6 +161,8 @@
                 
                 <!-- Fourth Row - Right to Left -->
                 <div class="marquee-row marquee-right-to-left">
+                    <button class="marquee-nav prev" aria-label="Previous images">‹</button>
+                    <button class="marquee-nav next" aria-label="Next images">›</button>
                     <div class="marquee-content">
                         <img src="images/24.jpg" alt="Portfolio Image" class="marquee-image">
                         <img src="images/25.jpg" alt="Portfolio Image" class="marquee-image">
@@ -412,19 +417,7 @@
                 </div>
             </div>
             
-            <!-- Video Modal -->
-            <div class="video-modal-phone">
-                <div class="video-modal-content-phone">
-                    <button class="video-modal-close-phone">&times;</button>
-                    <video class="video-modal-player-phone" controls>
-                        <source src="" type="video/mp4">
-                    </video>
-                    <div class="video-modal-info-phone">
-                        <h3 class="video-modal-title-phone"></h3>
-                        <p class="video-modal-desc-phone"></p>
-                    </div>
-                </div>
-            </div>
+            <!-- Video Modal removed - using dynamically created mobile modal -->
 
             <!-- Photo Modal -->
             <div id="photoModal" class="photo-modal">

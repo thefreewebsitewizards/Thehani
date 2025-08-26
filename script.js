@@ -368,6 +368,7 @@ class PortfolioFilter {
 // Modern Video Gallery with Playlist Functionality
 class ModernVideoGallery {
     constructor() {
+        // Check for hero video elements - these may not exist in current HTML structure
         this.heroVideo = document.getElementById('hero-video');
         this.heroVideoTitle = document.getElementById('hero-video-title');
         this.heroVideoDesc = document.getElementById('hero-video-desc');
@@ -376,8 +377,11 @@ class ModernVideoGallery {
         this.playlistItems = document.querySelectorAll('.playlist-item');
         this.currentVideoIndex = 0;
         
+        // Only initialize if hero video elements exist
         if (this.heroVideo && this.playlistItems.length > 0) {
             this.init();
+        } else {
+            console.log('Hero video elements not found - skipping HeroVideoManager initialization');
         }
     }
     
@@ -412,14 +416,14 @@ class ModernVideoGallery {
             }
         });
         
-        // Audio control
+        // Audio control - only if element exists
         if (this.audioControl) {
             this.audioControl.addEventListener('click', () => {
                 this.toggleAudio();
             });
         }
-        
-        // Fullscreen control
+
+        // Fullscreen control - only if element exists
         if (this.fullscreenControl) {
             this.fullscreenControl.addEventListener('click', () => {
                 this.toggleFullscreen();
@@ -459,7 +463,12 @@ class ModernVideoGallery {
             return;
         }
         
-        // Update hero video
+        // Update hero video - only if element exists
+        if (!this.heroVideo) {
+            console.warn('Hero video element not found - cannot switch video');
+            return;
+        }
+        
         this.heroVideo.src = videoSrc;
         this.heroVideo.load();
         
@@ -572,12 +581,15 @@ class ModernVideoGallery {
 // Video Grid Gallery with Modal Functionality
 class VideoGridGallery {
     constructor() {
-        this.videoItems = document.querySelectorAll('.video-item-mobile');
+        // Look for both mobile-specific and general video items
+        this.videoItems = document.querySelectorAll('.video-item-mobile, .video-item');
         this.modal = null;
         this.currentVideoIndex = 0;
         
         if (this.videoItems.length > 0) {
             this.init();
+        } else {
+            console.log('No video items found for VideoGridGallery');
         }
     }
     
@@ -614,13 +626,25 @@ class VideoGridGallery {
             });
         });
         
-        // Modal close
+        // Modal close button
         const closeBtn = this.modal.querySelector('.video-modal-close-mobile');
-        closeBtn.addEventListener('click', () => this.closeModal());
+        if (closeBtn) {
+            closeBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.closeModal();
+            });
+        }
         
         // Click outside to close
         this.modal.addEventListener('click', (e) => {
             if (e.target === this.modal) {
+                this.closeModal();
+            }
+        });
+        
+        // Keyboard navigation (Escape key)
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.modal.classList.contains('active')) {
                 this.closeModal();
             }
         });
@@ -786,7 +810,7 @@ function navigateModal(direction) {
 
 // Contact Form
 function initContactForm() {
-    const contactForm = document.getElementById('contact-form');
+    const contactForm = document.querySelector('.contact-form');
     if (contactForm) {
         contactForm.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -865,8 +889,14 @@ document.addEventListener('keydown', (e) => {
         // Close video modal if it exists
         const videoModal = document.querySelector('.video-modal-mobile.active');
         if (videoModal) {
-            const videoGallery = new VideoGridGallery();
-            videoGallery.closeModal();
+            videoModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            
+            // Pause video when closing
+            const video = videoModal.querySelector('video');
+            if (video) {
+                video.pause();
+            }
         }
     }
     
@@ -885,6 +915,7 @@ document.addEventListener('DOMContentLoaded', () => {
     new ModernVideoGallery();
     new VideoGridGallery();
     initContactForm();
+    initSeeMoreButtons();
     
     // Create image modal
     imageModal = createImageModal();
@@ -898,123 +929,49 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('Application initialized successfully');
 });
 
-// Video Gallery Class
-class VideoGallery {
-    constructor() {
-        this.videoItems = document.querySelectorAll('.video-item');
-        this.modal = document.querySelector('.video-modal-phone');
-        this.init();
-    }
+// Global Error Handling
+window.addEventListener('error', function(e) {
+    console.error('Global error caught:', e.error);
+    // Prevent error from breaking the application
+    return true;
+});
 
-    init() {
-        this.createModalIfNotExists();
-        this.setupEventListeners();
-    }
+// Handle unhandled promise rejections
+window.addEventListener('unhandledrejection', function(e) {
+    console.error('Unhandled promise rejection:', e.reason);
+    // Prevent unhandled rejection from breaking the application
+    e.preventDefault();
+});
 
-    createModalIfNotExists() {
-        if (!this.modal) {
-            this.modal = document.createElement('div');
-            this.modal.className = 'video-modal-phone';
-            this.modal.innerHTML = `
-                <div class="video-modal-content-phone">
-                    <button class="video-modal-close-phone">&times;</button>
-                    <video class="video-modal-player-phone" controls>
-                        <source src="" type="video/mp4">
-                    </video>
-                    <div class="video-modal-info-phone">
-                        <h3 class="video-modal-title-phone"></h3>
-                        <p class="video-modal-desc-phone"></p>
-                    </div>
-                </div>
-            `;
-            document.body.appendChild(this.modal);
-        }
-    }
-
-    setupEventListeners() {
-        // Video item clicks
-        this.videoItems.forEach(item => {
-            item.addEventListener('click', (e) => {
-                e.preventDefault();
-                this.openVideoModal(item);
-            });
-
-            // Hover effects for video preview
-            const video = item.querySelector('video');
-            if (video) {
-                item.addEventListener('mouseenter', () => {
-                    video.play().catch(e => console.log('Video play failed:', e));
-                });
-
-                item.addEventListener('mouseleave', () => {
-                    video.pause();
-                    video.currentTime = 0;
-                });
+// Video Error Handling
+function addVideoErrorHandling() {
+    const videos = document.querySelectorAll('video');
+    videos.forEach(video => {
+        video.addEventListener('error', function(e) {
+            console.warn('Video loading failed:', this.src);
+            // Hide video element or show placeholder
+            const parent = this.closest('.video-item, .phone-frame');
+            if (parent) {
+                parent.style.opacity = '0.5';
+                const overlay = parent.querySelector('.video-play-overlay');
+                if (overlay) {
+                    overlay.innerHTML = '<div class="error-message">Video unavailable</div>';
+                }
             }
         });
-
-        // Modal close events
-        const closeBtn = this.modal.querySelector('.video-modal-close-phone');
-        if (closeBtn) {
-            closeBtn.addEventListener('click', () => this.closeVideoModal());
-        }
-
-        this.modal.addEventListener('click', (e) => {
-            if (e.target === this.modal) {
-                this.closeVideoModal();
-            }
+        
+        video.addEventListener('loadstart', function() {
+            console.log('Video loading started:', this.src);
         });
-
-        // Keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && this.modal.classList.contains('active')) {
-                this.closeVideoModal();
-            }
-        });
-    }
-
-    openVideoModal(item) {
-        const videoSrc = item.dataset.video;
-        const title = item.dataset.title;
-        const desc = item.dataset.desc;
-
-        const video = this.modal.querySelector('.video-modal-player-phone');
-        const titleEl = this.modal.querySelector('.video-modal-title-phone');
-        const descEl = this.modal.querySelector('.video-modal-desc-phone');
-
-        if (video && titleEl && descEl) {
-            video.src = videoSrc;
-            titleEl.textContent = title;
-            descEl.textContent = desc;
-
-            this.modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-
-            // Auto-play video in modal
-            video.play().catch(e => console.log('Modal video play failed:', e));
-        }
-    }
-
-    closeVideoModal() {
-        const video = this.modal.querySelector('.video-modal-player-phone');
-        if (video) {
-            video.pause();
-            video.currentTime = 0;
-        }
-
-        this.modal.classList.remove('active');
-        document.body.style.overflow = 'auto';
-    }
+    });
 }
 
-// Update the DOMContentLoaded event listener (around line 772)
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize Phone Video Gallery
-    new VideoGallery();
-    
-    // Initialize See More buttons - ADD THIS LINE
-    initSeeMoreButtons();
-});
+// Initialize error handling after DOM is loaded
+addVideoErrorHandling();
+
+// VideoGallery class removed - using VideoGridGallery instead
+
+// See More buttons initialization moved to main DOMContentLoaded event listener
 
 // Add at the end of the file
 
@@ -1025,8 +982,14 @@ function initSeeMoreButtons() {
     const portfolioMinBtn = document.getElementById('portfolio-minimize');
     const testimonialsBtn = document.getElementById('seeAllReviews');
     const testimonialsMinBtn = document.getElementById('testimonials-minimize');
+    
+    // Log missing elements for debugging
+    if (!portfolioBtn) console.log('Portfolio see-more button not found');
+    if (!portfolioMinBtn) console.log('Portfolio minimize button not found');
     const videoBtn = document.getElementById('videoPortfolioSeeMoreBtn');
     const videoMinBtn = document.getElementById('videoPortfolioMinimizeBtn');
+    const heroVideoBtn = document.getElementById('videoSeeMoreBtn');
+    const heroVideoMinBtn = document.getElementById('videoMinimizeBtn');
     
     // Clear any existing event listeners by cloning and replacing elements
     if (videoBtn) {
@@ -1037,10 +1000,12 @@ function initSeeMoreButtons() {
         const newVideoMinBtn = videoMinBtn.cloneNode(true);
         videoMinBtn.parentNode.replaceChild(newVideoMinBtn, videoMinBtn);
     }
+    // Hero video buttons no longer exist in DOM
     
     // Get the fresh references
     const freshVideoBtn = document.getElementById('videoPortfolioSeeMoreBtn');
     const freshVideoMinBtn = document.getElementById('videoPortfolioMinimizeBtn');
+    // Hero video buttons removed from DOM
     
     if (window.innerWidth > 600) {
         // Desktop behavior
@@ -1094,7 +1059,7 @@ function initSeeMoreButtons() {
         
         if (freshVideoBtn && freshVideoMinBtn) {
             freshVideoBtn.addEventListener('click', function() {
-                const hiddenItems = document.querySelectorAll('.video-item:nth-child(n+4)');
+                const hiddenItems = document.querySelectorAll('.video-item:nth-child(n+7)');
                 hiddenItems.forEach(item => {
                     item.classList.add('show-more');
                 });
@@ -1111,8 +1076,12 @@ function initSeeMoreButtons() {
                 freshVideoBtn.style.display = 'inline-block';
             });
         }
-    } else {
-        // Mobile behavior
+    }
+    
+    // Hero section video button removed - no longer needed
+    
+    // Mobile behavior (separate from hero button logic)
+    if (window.innerWidth <= 600) {
         if (portfolioBtn && portfolioMinBtn) {
             portfolioBtn.addEventListener('click', function() {
                 const hiddenItems = document.querySelectorAll('.portfolio-item:nth-child(n+7)');
@@ -1139,7 +1108,7 @@ function initSeeMoreButtons() {
         
         if (freshVideoBtn && freshVideoMinBtn) {
             freshVideoBtn.addEventListener('click', function() {
-                const hiddenItems = document.querySelectorAll('.video-item:nth-child(n+4)');
+                const hiddenItems = document.querySelectorAll('.video-item:nth-child(n+7)');
                 hiddenItems.forEach(item => {
                     item.classList.add('show-more');
                 });
@@ -1199,6 +1168,12 @@ class MarqueePhotoModal {
         this.counter = document.getElementById('photoCounter');
         this.currentIndex = 0;
         this.photos = [];
+        this.isLoading = false;
+        this.touchStartX = 0;
+        this.touchStartY = 0;
+        this.touchEndX = 0;
+        this.touchEndY = 0;
+        this.minSwipeDistance = 50;
         this.init();
     }
 
@@ -1206,6 +1181,8 @@ class MarqueePhotoModal {
         this.collectPhotos();
         this.setupEventListeners();
         this.setupPhotoClickHandlers();
+        this.setupAccessibility();
+        this.setupTouchGestures();
     }
 
     collectPhotos() {
@@ -1213,12 +1190,12 @@ class MarqueePhotoModal {
         const allImages = Array.from(document.querySelectorAll('.marquee-image'));
         const uniqueImages = new Map();
         
-        allImages.forEach(img => {
+        allImages.forEach((img, index) => {
             const src = img.src;
             if (!uniqueImages.has(src)) {
                 uniqueImages.set(src, {
                     src: src,
-                    alt: img.alt || 'Portfolio photo'
+                    alt: img.alt || `Portfolio photo ${index + 1}`
                 });
             }
         });
@@ -1252,9 +1229,72 @@ class MarqueePhotoModal {
                     case 'ArrowRight':
                         this.navigatePhoto(1);
                         break;
+                    case 'Home':
+                        this.goToPhoto(0);
+                        break;
+                    case 'End':
+                        this.goToPhoto(this.photos.length - 1);
+                        break;
                 }
             }
         });
+    }
+
+    setupAccessibility() {
+        // Add ARIA attributes
+        this.modal.setAttribute('role', 'dialog');
+        this.modal.setAttribute('aria-modal', 'true');
+        this.modal.setAttribute('aria-labelledby', 'modal-title');
+        
+        // Add focus management
+        this.modal.addEventListener('keydown', (e) => {
+            if (e.key === 'Tab') {
+                this.trapFocus(e);
+            }
+        });
+    }
+
+    setupTouchGestures() {
+        this.modal.addEventListener('touchstart', (e) => {
+            this.touchStartX = e.touches[0].clientX;
+            this.touchStartY = e.touches[0].clientY;
+        }, { passive: true });
+
+        this.modal.addEventListener('touchend', (e) => {
+            this.touchEndX = e.changedTouches[0].clientX;
+            this.touchEndY = e.changedTouches[0].clientY;
+            this.handleSwipe();
+        }, { passive: true });
+    }
+
+    handleSwipe() {
+        const deltaX = this.touchEndX - this.touchStartX;
+        const deltaY = this.touchEndY - this.touchStartY;
+        
+        // Check if horizontal swipe is more significant than vertical
+        if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > this.minSwipeDistance) {
+            if (deltaX > 0) {
+                this.navigatePhoto(-1); // Swipe right - previous image
+            } else {
+                this.navigatePhoto(1);  // Swipe left - next image
+            }
+        }
+    }
+
+    trapFocus(e) {
+        const focusableElements = this.modal.querySelectorAll(
+            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+
+        if (e.shiftKey && document.activeElement === firstElement) {
+            e.preventDefault();
+            lastElement.focus();
+        } else if (!e.shiftKey && document.activeElement === lastElement) {
+            e.preventDefault();
+            firstElement.focus();
+        }
     }
 
     setupPhotoClickHandlers() {
@@ -1281,6 +1321,9 @@ class MarqueePhotoModal {
         setTimeout(() => {
             this.modal.style.opacity = '1';
         }, 10);
+        
+        // Focus management for accessibility
+        this.closeBtn.focus();
     }
 
     closeModal() {
@@ -1292,6 +1335,8 @@ class MarqueePhotoModal {
     }
 
     navigatePhoto(direction) {
+        if (this.isLoading) return;
+        
         this.currentIndex += direction;
         
         // Loop around
@@ -1304,21 +1349,230 @@ class MarqueePhotoModal {
         this.updateModalContent();
     }
 
+    goToPhoto(index) {
+        if (this.isLoading || index < 0 || index >= this.photos.length) return;
+        
+        this.currentIndex = index;
+        this.updateModalContent();
+    }
+
     updateModalContent() {
         const photo = this.photos[this.currentIndex];
-        this.modalPhoto.src = photo.src;
-        this.modalPhoto.alt = photo.alt;
-        this.counter.textContent = `${this.currentIndex + 1} / ${this.photos.length}`;
+        this.isLoading = true;
         
-        // Add loading animation
-        this.modalPhoto.style.opacity = '0';
-        this.modalPhoto.onload = () => {
+        // Show loading state
+        this.modalPhoto.style.opacity = '0.5';
+        this.modalPhoto.style.filter = 'blur(2px)';
+        
+        // Preload image for better performance
+        const img = new Image();
+        img.onload = () => {
+            this.modalPhoto.src = photo.src;
+            this.modalPhoto.alt = photo.alt;
             this.modalPhoto.style.opacity = '1';
+            this.modalPhoto.style.filter = 'none';
+            this.isLoading = false;
         };
+        
+        img.onerror = () => {
+            console.error('Failed to load image:', photo.src);
+            this.modalPhoto.alt = 'Failed to load image';
+            this.modalPhoto.style.opacity = '1';
+            this.modalPhoto.style.filter = 'none';
+            this.isLoading = false;
+        };
+        
+        img.src = photo.src;
+        
+        // Update counter and navigation button states
+        this.counter.textContent = `${this.currentIndex + 1} / ${this.photos.length}`;
+        this.updateNavigationButtons();
+    }
+
+    updateNavigationButtons() {
+        // Update button accessibility
+        this.prevBtn.setAttribute('aria-label', `Previous image (${this.currentIndex} of ${this.photos.length})`);
+        this.nextBtn.setAttribute('aria-label', `Next image (${this.currentIndex + 2} of ${this.photos.length})`);
+        
+        // Visual feedback for single image
+        if (this.photos.length === 1) {
+            this.prevBtn.style.opacity = '0.3';
+            this.nextBtn.style.opacity = '0.3';
+        } else {
+            this.prevBtn.style.opacity = '1';
+            this.nextBtn.style.opacity = '1';
+        }
     }
 }
 
 // Initialize marquee photo modal when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     new MarqueePhotoModal();
+    new MarqueeSlider();
 });
+
+// Marquee Slider Class for touch/swipe control
+class MarqueeSlider {
+    constructor() {
+        this.marqueeRows = document.querySelectorAll('.marquee-row');
+        this.isDragging = false;
+        this.startX = 0;
+        this.currentX = 0;
+        this.translateX = 0;
+        this.animationId = null;
+        this.init();
+    }
+
+    init() {
+        this.setupEventListeners();
+        this.setupNavigationButtons();
+    }
+
+    setupEventListeners() {
+        this.marqueeRows.forEach(row => {
+            const marqueeContent = row.querySelector('.marquee-content');
+            
+            // Touch events
+            row.addEventListener('touchstart', this.handleTouchStart.bind(this), { passive: false });
+            row.addEventListener('touchmove', this.handleTouchMove.bind(this), { passive: false });
+            row.addEventListener('touchend', this.handleTouchEnd.bind(this));
+            
+            // Mouse events for desktop
+            row.addEventListener('mousedown', this.handleMouseDown.bind(this));
+            row.addEventListener('mousemove', this.handleMouseMove.bind(this));
+            row.addEventListener('mouseup', this.handleMouseUp.bind(this));
+            row.addEventListener('mouseleave', this.handleMouseUp.bind(this));
+            
+            // Prevent context menu on long press
+            row.addEventListener('contextmenu', (e) => {
+                if (this.isDragging) e.preventDefault();
+            });
+        });
+    }
+
+    setupNavigationButtons() {
+        this.marqueeRows.forEach(row => {
+            const prevBtn = row.querySelector('.marquee-nav.prev');
+            const nextBtn = row.querySelector('.marquee-nav.next');
+            
+            if (prevBtn) {
+                prevBtn.addEventListener('click', () => this.slideMarquee(row, 'prev'));
+            }
+            
+            if (nextBtn) {
+                nextBtn.addEventListener('click', () => this.slideMarquee(row, 'next'));
+            }
+        });
+    }
+
+    handleTouchStart(e) {
+        this.startDrag(e.touches[0].clientX, e.currentTarget);
+        e.preventDefault();
+    }
+
+    handleTouchMove(e) {
+        if (!this.isDragging) return;
+        this.updateDrag(e.touches[0].clientX);
+        e.preventDefault();
+    }
+
+    handleTouchEnd(e) {
+        this.endDrag();
+    }
+
+    handleMouseDown(e) {
+        this.startDrag(e.clientX, e.currentTarget);
+        e.preventDefault();
+    }
+
+    handleMouseMove(e) {
+        if (!this.isDragging) return;
+        this.updateDrag(e.clientX);
+    }
+
+    handleMouseUp(e) {
+        this.endDrag();
+    }
+
+    startDrag(clientX, row) {
+        this.isDragging = true;
+        this.startX = clientX;
+        this.currentRow = row;
+        this.marqueeContent = row.querySelector('.marquee-content');
+        
+        // Pause animation and add manual control class
+        row.classList.add('manual-control', 'dragging');
+        
+        // Get current transform value
+        const transform = getComputedStyle(this.marqueeContent).transform;
+        if (transform !== 'none') {
+            const matrix = new DOMMatrix(transform);
+            this.translateX = matrix.m41;
+        } else {
+            this.translateX = 0;
+        }
+        
+        document.body.style.userSelect = 'none';
+    }
+
+    updateDrag(clientX) {
+        if (!this.isDragging) return;
+        
+        this.currentX = clientX;
+        const deltaX = this.currentX - this.startX;
+        const newTranslateX = this.translateX + deltaX;
+        
+        this.marqueeContent.style.transform = `translateX(${newTranslateX}px)`;
+    }
+
+    endDrag() {
+        if (!this.isDragging) return;
+        
+        this.isDragging = false;
+        
+        // Remove dragging class and restore animation
+        if (this.currentRow) {
+            this.currentRow.classList.remove('manual-control', 'dragging');
+        }
+        
+        document.body.style.userSelect = '';
+        
+        // Reset transform to let CSS animation take over
+        if (this.marqueeContent) {
+            this.marqueeContent.style.transform = '';
+        }
+        
+        this.currentRow = null;
+        this.marqueeContent = null;
+    }
+
+    slideMarquee(row, direction) {
+        const marqueeContent = row.querySelector('.marquee-content');
+        const slideAmount = 300; // pixels to slide
+        
+        // Temporarily pause animation
+        row.classList.add('manual-control');
+        
+        // Get current transform
+        const transform = getComputedStyle(marqueeContent).transform;
+        let currentX = 0;
+        if (transform !== 'none') {
+            const matrix = new DOMMatrix(transform);
+            currentX = matrix.m41;
+        }
+        
+        // Calculate new position
+        const newX = direction === 'next' ? currentX - slideAmount : currentX + slideAmount;
+        
+        // Apply transform with transition
+        marqueeContent.style.transition = 'transform 0.3s ease';
+        marqueeContent.style.transform = `translateX(${newX}px)`;
+        
+        // Resume animation after a delay
+        setTimeout(() => {
+            row.classList.remove('manual-control');
+            marqueeContent.style.transition = '';
+            marqueeContent.style.transform = '';
+        }, 300);
+    }
+}
