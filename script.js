@@ -659,10 +659,10 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('Application initialized successfully');
 });
 
-// Phone Video Gallery Class
-class PhoneVideoGallery {
+// Video Gallery Class
+class VideoGallery {
     constructor() {
-        this.videoItems = document.querySelectorAll('.phone-video-item');
+        this.videoItems = document.querySelectorAll('.video-item');
         this.modal = document.querySelector('.video-modal-phone');
         this.init();
     }
@@ -771,7 +771,7 @@ class PhoneVideoGallery {
 // Update the DOMContentLoaded event listener (around line 772)
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize Phone Video Gallery
-    new PhoneVideoGallery();
+    new VideoGallery();
     
     // Initialize See More buttons - ADD THIS LINE
     initSeeMoreButtons();
@@ -781,14 +781,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Portfolio and Testimonials See More functionality
 function initSeeMoreButtons() {
+    // Remove existing event listeners to prevent duplicates
     const portfolioBtn = document.getElementById('portfolio-see-more');
     const portfolioMinBtn = document.getElementById('portfolio-minimize');
     const testimonialsBtn = document.getElementById('seeAllReviews');
     const testimonialsMinBtn = document.getElementById('testimonials-minimize');
-    const videoBtn = document.getElementById('video-see-more');
-    const videoMinBtn = document.getElementById('video-minimize');
+    const videoBtn = document.getElementById('videoPortfolioSeeMoreBtn');
+    const videoMinBtn = document.getElementById('videoPortfolioMinimizeBtn');
     
-    if (window.innerWidth > 768) {
+    // Clear any existing event listeners by cloning and replacing elements
+    if (videoBtn) {
+        const newVideoBtn = videoBtn.cloneNode(true);
+        videoBtn.parentNode.replaceChild(newVideoBtn, videoBtn);
+    }
+    if (videoMinBtn) {
+        const newVideoMinBtn = videoMinBtn.cloneNode(true);
+        videoMinBtn.parentNode.replaceChild(newVideoMinBtn, videoMinBtn);
+    }
+    
+    // Get the fresh references
+    const freshVideoBtn = document.getElementById('videoPortfolioSeeMoreBtn');
+    const freshVideoMinBtn = document.getElementById('videoPortfolioMinimizeBtn');
+    
+    if (window.innerWidth > 600) {
         // Desktop behavior
         if (portfolioBtn && portfolioMinBtn) {
             portfolioBtn.addEventListener('click', function() {
@@ -838,25 +853,23 @@ function initSeeMoreButtons() {
             });
         }
         
-        if (videoBtn && videoMinBtn) {
-            videoBtn.addEventListener('click', function() {
-                const hiddenItems = document.querySelectorAll('.phone-video-item:nth-child(n+5)');
+        if (freshVideoBtn && freshVideoMinBtn) {
+            freshVideoBtn.addEventListener('click', function() {
+                const hiddenItems = document.querySelectorAll('.video-item:nth-child(n+4)');
                 hiddenItems.forEach(item => {
-                    item.style.display = 'block';
-                    item.classList.add('expanded-video');
+                    item.classList.add('show-more');
                 });
                 this.style.display = 'none';
-                videoMinBtn.style.display = 'block';
+                freshVideoMinBtn.style.display = 'inline-block';
             });
             
-            videoMinBtn.addEventListener('click', function() {
-                const expandedItems = document.querySelectorAll('.expanded-video');
+            freshVideoMinBtn.addEventListener('click', function() {
+                const expandedItems = document.querySelectorAll('.video-item.show-more');
                 expandedItems.forEach(item => {
-                    item.style.display = 'none';
-                    item.classList.remove('expanded-video');
+                    item.classList.remove('show-more');
                 });
                 this.style.display = 'none';
-                videoBtn.style.display = 'block';
+                freshVideoBtn.style.display = 'inline-block';
             });
         }
     } else {
@@ -866,7 +879,7 @@ function initSeeMoreButtons() {
                 const hiddenItems = document.querySelectorAll('.portfolio-item:nth-child(n+7)');
                 hiddenItems.forEach(item => {
                     item.style.display = 'block';
-                    item.classList.add('show-mobile');
+                    item.classList.add('show-more');
                     item.classList.add('expanded-portfolio-mobile');
                 });
                 this.style.display = 'none';
@@ -877,7 +890,7 @@ function initSeeMoreButtons() {
                 const expandedItems = document.querySelectorAll('.expanded-portfolio-mobile');
                 expandedItems.forEach(item => {
                     item.style.display = 'none';
-                    item.classList.remove('show-mobile');
+                    item.classList.remove('show-more');
                     item.classList.remove('expanded-portfolio-mobile');
                 });
                 this.style.display = 'none';
@@ -885,27 +898,23 @@ function initSeeMoreButtons() {
             });
         }
         
-        if (videoBtn && videoMinBtn) {
-            videoBtn.addEventListener('click', function() {
-                const hiddenItems = document.querySelectorAll('.phone-video-item:nth-child(n+5)');
+        if (freshVideoBtn && freshVideoMinBtn) {
+            freshVideoBtn.addEventListener('click', function() {
+                const hiddenItems = document.querySelectorAll('.video-item:nth-child(n+4)');
                 hiddenItems.forEach(item => {
-                    item.style.display = 'block';
-                    item.classList.add('show-mobile');
-                    item.classList.add('expanded-video-mobile');
+                    item.classList.add('show-more');
                 });
                 this.style.display = 'none';
-                videoMinBtn.style.display = 'block';
+                freshVideoMinBtn.style.display = 'inline-block';
             });
             
-            videoMinBtn.addEventListener('click', function() {
-                const expandedItems = document.querySelectorAll('.expanded-video-mobile');
+            freshVideoMinBtn.addEventListener('click', function() {
+                const expandedItems = document.querySelectorAll('.video-item.show-more');
                 expandedItems.forEach(item => {
-                    item.style.display = 'none';
-                    item.classList.remove('show-mobile');
-                    item.classList.remove('expanded-video-mobile');
+                    item.classList.remove('show-more');
                 });
                 this.style.display = 'none';
-                videoBtn.style.display = 'block';
+                freshVideoBtn.style.display = 'inline-block';
             });
         }
         
@@ -914,7 +923,7 @@ function initSeeMoreButtons() {
                 const hiddenItems = document.querySelectorAll('.testimonial:nth-child(n+4)');
                 hiddenItems.forEach(item => {
                     item.style.display = 'block';
-                    item.classList.add('show-mobile');
+                    item.classList.add('show-more');
                     item.classList.add('expanded-testimonial-mobile');
                 });
                 this.style.display = 'none';
@@ -925,7 +934,7 @@ function initSeeMoreButtons() {
                 const expandedItems = document.querySelectorAll('.expanded-testimonial-mobile');
                 expandedItems.forEach(item => {
                     item.style.display = 'none';
-                    item.classList.remove('show-mobile');
+                    item.classList.remove('show-more');
                     item.classList.remove('expanded-testimonial-mobile');
                 });
                 this.style.display = 'none';

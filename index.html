@@ -62,9 +62,14 @@
                         <span>@thehani</span>
                     </a>
                 </div>
+                    
+                    <div class="video-buttons">
+                        <button class="see-more-btn video-see-more-btn" id="videoSeeMoreBtn">See All Videos</button>
+                        <button class="see-more-btn video-minimize-btn" id="videoMinimizeBtn" style="display: none;">Show Less</button>
+                    </div>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
     <!-- Portfolio Section - Simplified -->
     <section id="portfolio" class="portfolio">
@@ -193,189 +198,230 @@
                     <h2 class="video-portfolio-title">video portfolio</h2>
                     <p class="video-portfolio-subtitle">Paid ads and UCG / content examples</p>
                     
-                    <div class="phone-video-grid">
-                        <div class="phone-video-item" data-video="video/h.mp4" data-title="Product Showcase" data-desc="Beautiful product presentation">
+                    <div class="video-grid">
+                        <div class="video-item" data-video="video/h.mp4" data-title="Product Showcase" data-desc="Beautiful product presentation">
                             <div class="phone-frame">
                                 <div class="phone-screen">
                                     <video muted loop preload="metadata">
                                         <source src="video/h.mp4" type="video/mp4">
                                     </video>
                                     <div class="video-play-overlay">
-                                        <div class="play-button"></div>
+                                        <div class="play-button">▶</div>
                                     </div>
                                 </div>
                                 <div class="phone-notch"></div>
                             </div>
+                            <div class="video-info" style="display: none;">
+                                <h4>Product Showcase</h4>
+                                <p>Beautiful product presentation</p>
+                            </div>
                         </div>
                         
-                        <div class="phone-video-item" data-video="video/a/a.mp4" data-title="Food Lifestyle" data-desc="Culinary artistry captured">
+                        <div class="video-item" data-video="video/a.mp4" data-title="Food Lifestyle" data-desc="Culinary artistry captured">
                             <div class="phone-frame">
                                 <div class="phone-screen">
                                     <video muted loop preload="metadata">
-                                        <source src="video/a/a.mp4" type="video/mp4">
+                                        <source src="video/a.mp4" type="video/mp4">
                                     </video>
                                     <div class="video-play-overlay">
-                                        <div class="play-button"></div>
+                                        <div class="play-button">▶</div>
                                     </div>
                                 </div>
                                 <div class="phone-notch"></div>
                             </div>
+                            <div class="video-info" style="display: none;">
+                                <h4>Food Lifestyle</h4>
+                                <p>Culinary artistry captured</p>
+                            </div>
                         </div>
                         
-                        <div class="phone-video-item" data-video="video/b/b.mp4" data-title="Beauty Shots" data-desc="Elegant beauty presentation">
+                        <div class="video-item" data-video="video/b.mp4" data-title="Beauty Shots" data-desc="Elegant beauty presentation">
                             <div class="phone-frame">
                                 <div class="phone-screen">
                                     <video muted loop preload="metadata">
-                                        <source src="video/b/b.mp4" type="video/mp4">
+                                        <source src="video/b.mp4" type="video/mp4">
                                     </video>
                                     <div class="video-play-overlay">
-                                        <div class="play-button"></div>
+                                        <div class="play-button">▶</div>
                                     </div>
                                 </div>
                                 <div class="phone-notch"></div>
                             </div>
+                            <div class="video-info" style="display: none;">
+                                <h4>Beauty Shots</h4>
+                                <p>Elegant beauty presentation</p>
+                            </div>
                         </div>
                         
-                        <div class="phone-video-item" data-video="video/c/c.mp4" data-title="Lifestyle" data-desc="Dynamic lifestyle content">
+                        <div class="video-item" data-video="video/c.mp4" data-title="Lifestyle" data-desc="Dynamic lifestyle content">
                             <div class="phone-frame">
                                 <div class="phone-screen">
                                     <video muted loop preload="metadata">
-                                        <source src="video/c/c.mp4" type="video/mp4">
+                                        <source src="video/c.mp4" type="video/mp4">
                                     </video>
                                     <div class="video-play-overlay">
-                                        <div class="play-button"></div>
+                                        <div class="play-button">▶</div>
                                     </div>
                                 </div>
                                 <div class="phone-notch"></div>
                             </div>
+                            <div class="video-info" style="display: none;">
+                                <h4>Lifestyle</h4>
+                                <p>Dynamic lifestyle content</p>
+                            </div>
                         </div>
                         
-                        <div class="phone-video-item" data-video="video/d/d.mp4" data-title="Tech Demo" data-desc="Technology showcase">
+                        <div class="video-item" data-video="video/d.mp4" data-title="Tech Demo" data-desc="Technology showcase">
                             <div class="phone-frame">
                                 <div class="phone-screen">
                                     <video muted loop preload="metadata">
-                                        <source src="video/d/d.mp4" type="video/mp4">
+                                        <source src="video/d.mp4" type="video/mp4">
                                     </video>
                                     <div class="video-play-overlay">
-                                        <div class="play-button"></div>
+                                        <div class="play-button">▶</div>
                                     </div>
                                 </div>
                                 <div class="phone-notch"></div>
                             </div>
+                            <div class="video-info" style="display: none;">
+                                <h4>Tech Demo</h4>
+                                <p>Technology showcase</p>
+                            </div>
                         </div>
                         
-                        <!-- Video 6 - New e.mp4 video -->
-                        <div class="phone-video-item" data-video="video/e.mp4" data-title="Creative Content" data-desc="Artistic visual storytelling">
+                        <div class="video-item" data-video="video/e.mp4" data-title="Creative Content" data-desc="Artistic visual storytelling">
                             <div class="phone-frame">
                                 <div class="phone-screen">
                                     <video muted loop preload="metadata">
                                         <source src="video/e.mp4" type="video/mp4">
                                     </video>
                                     <div class="video-play-overlay">
-                                        <div class="play-button"></div>
+                                        <div class="play-button">▶</div>
                                     </div>
                                 </div>
                                 <div class="phone-notch"></div>
                             </div>
+                            <div class="video-info" style="display: none;">
+                                <h4>Creative Content</h4>
+                                <p>Artistic visual storytelling</p>
+                            </div>
                         </div>
                         
-                        <!-- Video 7 - Using f.mp4 -->
-                        <div class="phone-video-item" data-video="video/f.mp4" data-title="Brand Story" data-desc="Compelling brand narrative">
+                        <div class="video-item" data-video="video/f.mp4" data-title="Brand Story" data-desc="Compelling brand narrative">
                             <div class="phone-frame">
                                 <div class="phone-screen">
                                     <video muted loop preload="metadata">
                                         <source src="video/f.mp4" type="video/mp4">
                                     </video>
                                     <div class="video-play-overlay">
-                                        <div class="play-button"></div>
+                                        <div class="play-button">▶</div>
                                     </div>
                                 </div>
                                 <div class="phone-notch"></div>
                             </div>
+                            <div class="video-info" style="display: none;">
+                                <h4>Brand Story</h4>
+                                <p>Compelling brand narrative</p>
+                            </div>
                         </div>
                         
-                        <!-- Video 8 - v1 -->
-                        <div class="phone-video-item" data-video="video/v1.mp4" data-title="Videography V1" data-desc="Creative videography showcase">
+                        <div class="video-item" data-video="video/v1.mp4" data-title="Videography V1" data-desc="Creative videography showcase">
                             <div class="phone-frame">
                                 <div class="phone-screen">
                                     <video muted loop preload="metadata">
                                         <source src="video/v1.mp4" type="video/mp4">
                                     </video>
                                     <div class="video-play-overlay">
-                                        <div class="play-button"></div>
+                                        <div class="play-button">▶</div>
                                     </div>
                                 </div>
                                 <div class="phone-notch"></div>
                             </div>
+                            <div class="video-info" style="display: none;">
+                                <h4>Videography V1</h4>
+                                <p>Creative videography showcase</p>
+                            </div>
                         </div>
                         
-                        <!-- Video 9 - v2 -->
-                        <div class="phone-video-item" data-video="video/v2.mp4" data-title="Videography V2" data-desc="Professional video content">
+                        <div class="video-item" data-video="video/v2.mp4" data-title="Videography V2" data-desc="Professional video content">
                             <div class="phone-frame">
                                 <div class="phone-screen">
                                     <video muted loop preload="metadata">
                                         <source src="video/v2.mp4" type="video/mp4">
                                     </video>
                                     <div class="video-play-overlay">
-                                        <div class="play-button"></div>
+                                        <div class="play-button">▶</div>
                                     </div>
                                 </div>
                                 <div class="phone-notch"></div>
                             </div>
+                            <div class="video-info" style="display: none;">
+                                <h4>Videography V2</h4>
+                                <p>Professional video content</p>
+                            </div>
                         </div>
                         
-                        <!-- Video 10 - v3 -->
-                        <div class="phone-video-item" data-video="video/v3.mp4" data-title="Videography V3" data-desc="Cinematic storytelling">
+                        <div class="video-item" data-video="video/v3.mp4" data-title="Videography V3" data-desc="Cinematic storytelling">
                             <div class="phone-frame">
                                 <div class="phone-screen">
                                     <video muted loop preload="metadata">
                                         <source src="video/v3.mp4" type="video/mp4">
                                     </video>
                                     <div class="video-play-overlay">
-                                        <div class="play-button"></div>
+                                        <div class="play-button">▶</div>
                                     </div>
                                 </div>
                                 <div class="phone-notch"></div>
                             </div>
+                            <div class="video-info" style="display: none;">
+                                <h4>Videography V3</h4>
+                                <p>Cinematic storytelling</p>
+                            </div>
                         </div>
                         
-                        <!-- Video 11 - v4 -->
-                        <div class="phone-video-item" data-video="video/v4.mp4" data-title="Videography V4" data-desc="Dynamic visual content">
+                        <div class="video-item" data-video="video/v4.mp4" data-title="Videography V4" data-desc="Dynamic visual content">
                             <div class="phone-frame">
                                 <div class="phone-screen">
                                     <video muted loop preload="metadata">
                                         <source src="video/v4.mp4" type="video/mp4">
                                     </video>
                                     <div class="video-play-overlay">
-                                        <div class="play-button"></div>
+                                        <div class="play-button">▶</div>
                                     </div>
                                 </div>
                                 <div class="phone-notch"></div>
                             </div>
+                            <div class="video-info" style="display: none;">
+                                <h4>Videography V4</h4>
+                                <p>Dynamic visual content</p>
+                            </div>
                         </div>
                         
-                        <!-- Video 12 - v5 -->
-                        <div class="phone-video-item" data-video="video/v5.mp4" data-title="Videography V5" data-desc="Artistic video production">
+                        <div class="video-item" data-video="video/v5.mp4" data-title="Videography V5" data-desc="Artistic video production">
                             <div class="phone-frame">
                                 <div class="phone-screen">
                                     <video muted loop preload="metadata">
                                         <source src="video/v5.mp4" type="video/mp4">
                                     </video>
                                     <div class="video-play-overlay">
-                                        <div class="play-button"></div>
+                                        <div class="play-button">▶</div>
                                     </div>
                                 </div>
                                 <div class="phone-notch"></div>
                             </div>
+                            <div class="video-info" style="display: none;">
+                                <h4>Videography V5</h4>
+                                <p>Artistic video production</p>
+                            </div>
                         </div>
                     </div>
+                    
+                    <!-- Video Buttons -->
+                    <div class="video-buttons">
+                        <button class="video-see-more-btn" id="videoPortfolioSeeMoreBtn">See All Videos</button>
+                    <button class="video-minimize-btn" id="videoPortfolioMinimizeBtn" style="display: none;">Show Less</button>
+                    </div>
                 </div>
-            </div>
-            
-            <!-- Video See More Button -->
-            <div class="video-see-more-container">
-                <button id="video-see-more" class="see-more-btn">See All Videos</button>
-                <button id="video-minimize" class="minimize-btn" style="display: none;">Show Less</button>
             </div>
             
             <!-- Video Modal -->
