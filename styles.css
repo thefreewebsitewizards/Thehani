@@ -457,7 +457,6 @@ h1, h2, h3 {
     width: 200%;
     max-width: none;
     box-sizing: border-box;
-    cursor: grab;
 }
 
 .marquee-left-to-right .marquee-content {
@@ -489,69 +488,6 @@ h1, h2, h3 {
 /* Hover pause functionality */
 .marquee-row:hover .marquee-content {
     animation-play-state: paused;
-}
-
-/* Manual control states */
-.marquee-row.paused .marquee-content {
-    animation-play-state: paused;
-}
-
-.marquee-row.manual-control .marquee-content {
-    animation: none;
-    transition: transform 0.3s ease;
-}
-
-/* Touch interaction styles */
-.marquee-row.dragging .marquee-content {
-    transition: none;
-    cursor: grabbing;
-}
-
-.marquee-row.dragging .marquee-image {
-    pointer-events: none;
-    user-select: none;
-}
-
-/* Navigation buttons for marquee */
-.marquee-nav {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.9);
-    border: none;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    color: #8b7355;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-    z-index: 10;
-    opacity: 0;
-    visibility: hidden;
-}
-
-.marquee-nav:hover {
-    background: rgba(139, 115, 85, 0.9);
-    color: white;
-    transform: translateY(-50%) scale(1.1);
-}
-
-.marquee-nav.prev {
-    left: 10px;
-}
-
-.marquee-nav.next {
-    right: 10px;
-}
-
-.portfolio-marquee-gallery:hover .marquee-nav {
-    opacity: 1;
-    visibility: visible;
 }
 
 /* Keyframe Animations */
