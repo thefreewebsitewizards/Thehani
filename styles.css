@@ -675,63 +675,119 @@ h1, h2, h3 {
     line-height: 1.6;
 }
 
-/* Brands Section */
+/* Brands Section - Enhanced Modern Design */
 .brands {
-    padding: 6rem 0;
-    background: linear-gradient(135deg, #f7f5f3 0%, #ede4d3 100%);
+    padding: 8rem 0;
+    background: linear-gradient(135deg, #faf8f5 0%, #f5f1eb 50%, #ede4d3 100%);
+    position: relative;
     overflow: hidden;
+}
+
+.brands::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 20%, rgba(212, 175, 55, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(139, 115, 85, 0.02) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.brands .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.2rem;
+    font-weight: 400;
+    text-align: center;
+    background: linear-gradient(135deg, #d4af37 0%, #b8860b 50%, #8b7355 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+    text-shadow: 0 2px 4px rgba(139, 115, 85, 0.1);
 }
 
 .brands-subtitle {
     text-align: center;
-    color: #6b5b73;
-    font-size: 1.1rem;
-    margin-bottom: 4rem;
-    font-style: italic;
+    color: #8b7355;
+    font-size: 1.2rem;
+    margin-bottom: 5rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    opacity: 0.9;
 }
 
 .brands-grid {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
-    gap: 0.5rem;
-    padding: 2rem;
-    max-width: 1200px;
+    gap: 1.5rem;
+    padding: 3rem 2rem;
+    max-width: 1400px;
     margin: 0 auto;
+    position: relative;
 }
 
 .brand-logo {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 120px;
-    height: 80px;
-    padding: 1rem;
-    background: transparent;
-    border-radius: 12px;
-    transition: all 0.3s ease;
-    box-shadow: none;
-    border: none;
+    width: 140px;
+    height: 100px;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 32px rgba(139, 115, 85, 0.08),
+                0 2px 8px rgba(139, 115, 85, 0.04),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+.brand-logo::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: left 0.6s ease;
+}
+
+.brand-logo:hover::before {
+    left: 100%;
 }
 
 .brand-logo:hover {
-    transform: translateY(-5px);
-    box-shadow: none;
-    background: transparent;
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 60px rgba(139, 115, 85, 0.15),
+                0 8px 20px rgba(139, 115, 85, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.85);
+    border-color: rgba(212, 175, 55, 0.2);
 }
 
 .brand-img {
-    max-width: 100%;
-    max-height: 100%;
+    max-width: 85%;
+    max-height: 85%;
     width: auto;
     height: auto;
     object-fit: contain;
-    filter: grayscale(30%) opacity(0.9);
-    transition: all 0.3s ease;
+    filter: grayscale(20%) opacity(0.85) contrast(1.1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    z-index: 2;
 }
 
 .brand-logo:hover .brand-img {
-    filter: grayscale(0%) opacity(1);
-    transform: scale(1.05);
+    filter: grayscale(0%) opacity(1) contrast(1.2) brightness(1.05);
+    transform: scale(1.08);
 }
 
 /* Contact Section */
@@ -1317,6 +1373,37 @@ h1, h2, h3 {
     .contact {
         padding: 4rem 0;
     }
+    
+    /* Brands tablet styles */
+    .brands {
+        padding: 7rem 0;
+    }
+    
+    .brands .section-title {
+        font-size: 2.8rem;
+    }
+    
+    .brands-subtitle {
+        font-size: 1.1rem;
+        margin-bottom: 4rem;
+    }
+    
+    .brands-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.2rem;
+        padding: 2.5rem 1.5rem;
+        max-width: 800px;
+    }
+    
+    .brand-logo {
+        width: 120px;
+        height: 85px;
+        padding: 1.2rem;
+    }
+    
+    .brand-logo:hover {
+        transform: translateY(-6px) scale(1.015);
+    }
 }
 
 @media (max-width: 480px) {
@@ -1340,31 +1427,57 @@ h1, h2, h3 {
         padding: 6rem 0 2rem;
     }
     
-    /* Brand logos mobile styles */
+    /* Brand logos mobile styles - Enhanced */
+    .brands {
+        padding: 6rem 0;
+    }
+    
+    .brands .section-title {
+        font-size: 2.4rem;
+        margin-bottom: 0.8rem;
+    }
+    
+    .brands-subtitle {
+        font-size: 1rem;
+        margin-bottom: 3rem;
+        padding: 0 1rem;
+    }
+    
     .brands-grid {
         grid-template-columns: repeat(3, 1fr);
-        gap: 0.5rem;
-        padding: 1.5rem;
+        gap: 1rem;
+        padding: 2rem 1rem;
         max-width: 500px;
     }
     
     .brand-logo {
-        width: 90px;
-        height: 60px;
-        padding: 0.75rem;
-        background: transparent;
-        border-radius: 8px;
-        box-shadow: none;
-        border: none;
+        width: 100px;
+        height: 70px;
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(8px);
+        border-radius: 16px;
+        box-shadow: 0 4px 20px rgba(139, 115, 85, 0.1),
+                    0 1px 4px rgba(139, 115, 85, 0.05),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    }
+    
+    .brand-logo:hover {
+        transform: translateY(-4px) scale(1.01);
+        box-shadow: 0 8px 30px rgba(139, 115, 85, 0.15),
+                    0 4px 10px rgba(139, 115, 85, 0.08),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.7);
     }
     
     .brand-img {
-        max-width: 100%;
-        max-height: 100%;
-        width: auto;
-        height: auto;
-        object-fit: contain;
-        filter: grayscale(30%) opacity(0.9);
+        max-width: 80%;
+        max-height: 80%;
+        filter: grayscale(15%) opacity(0.9) contrast(1.05);
+    }
+    
+    .brand-logo:hover .brand-img {
+        filter: grayscale(0%) opacity(1) contrast(1.15) brightness(1.03);
+        transform: scale(1.05);
     }
 
     /* Portfolio mobile styles */
