@@ -43,28 +43,267 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// Intersection Observer for animations
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
+// Enhanced Intersection Observer for scroll-triggered animations
+class ScrollRevealManager {
+    constructor() {
+        this.observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        
+        this.observer = new IntersectionObserver(
+            this.handleIntersection.bind(this),
+            this.observerOptions
+        );
+        
+        this.init();
+    }
+    
+    init() {
+        // Wait for DOM to be fully loaded
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => this.setupAnimations());
+        } else {
+            this.setupAnimations();
         }
-    });
-}, observerOptions);
+    }
+    
+    handleIntersection(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                this.revealElement(entry.target);
+                // Stop observing once revealed to improve performance
+                this.observer.unobserve(entry.target);
+            }
+        });
+    }
+    
+    revealElement(element) {
+        // Add revealed class for CSS transitions
+        element.classList.add('revealed');
+        
+        // Handle staggered animations for grid items
+        if (element.classList.contains('stagger-container')) {
+            this.handleStaggeredReveal(element);
+        }
+    }
+    
+    handleStaggeredReveal(container) {
+        const items = container.querySelectorAll('.stagger-item');
+        items.forEach((item, index) => {
+            setTimeout(() => {
+                item.classList.add('revealed');
+            }, index * 100); // 100ms delay between each item
+        });
+    }
+    
+    setupAnimations() {
+        // Video Gallery Section
+        this.setupVideoGalleryAnimations();
+        
+        // Services Section
+        this.setupServicesAnimations();
+        
+        // Testimonials Section
+        this.setupTestimonialsAnimations();
+        
+        // Brands Section
+        this.setupBrandsAnimations();
+        
+        // Contact Section
+        this.setupContactAnimations();
+        
+        // Legacy support for existing elements
+        this.setupLegacyAnimations();
+    }
+    
+    setupVideoGalleryAnimations() {
+        const videoSection = document.querySelector('.video-portfolio-section');
+        if (videoSection) {
+            // Section title
+            const title = videoSection.querySelector('.video-portfolio-title');
+            if (title) {
+                title.classList.add('title-animate');
+                this.observer.observe(title);
+            }
+            
+            // Section subtitle
+            const subtitle = videoSection.querySelector('.video-portfolio-subtitle');
+            if (subtitle) {
+                subtitle.classList.add('fade-in-up');
+                this.observer.observe(subtitle);
+            }
+            
+            // Video grid container
+            const videoGrid = videoSection.querySelector('.video-grid');
+            if (videoGrid) {
+                videoGrid.classList.add('stagger-container');
+                
+                // Individual video items
+                const videoItems = videoGrid.querySelectorAll('.video-item');
+                videoItems.forEach((item, index) => {
+                    item.classList.add('stagger-item');
+                    if (index < 10) {
+                        item.classList.add(`delay-${index + 1}`);
+                    }
+                });
+                
+                this.observer.observe(videoGrid);
+            }
+            
+            // Video buttons
+            const videoButtons = videoSection.querySelector('.video-buttons');
+            if (videoButtons) {
+                videoButtons.classList.add('fade-in-up');
+                this.observer.observe(videoButtons);
+            }
+        }
+    }
+    
+    setupServicesAnimations() {
+        const servicesSection = document.querySelector('.services');
+        if (servicesSection) {
+            // Section title
+            const title = servicesSection.querySelector('.section-title');
+            if (title) {
+                title.classList.add('title-animate');
+                this.observer.observe(title);
+            }
+            
+            // Services grid
+            const servicesGrid = servicesSection.querySelector('.services-grid');
+            if (servicesGrid) {
+                servicesGrid.classList.add('stagger-container');
+                
+                // Individual service items
+                const serviceItems = servicesGrid.querySelectorAll('.service-item');
+                serviceItems.forEach((item, index) => {
+                    item.classList.add('stagger-item');
+                    if (index < 6) {
+                        item.classList.add(`delay-${index + 1}`);
+                    }
+                });
+                
+                this.observer.observe(servicesGrid);
+            }
+        }
+    }
+    
+    setupTestimonialsAnimations() {
+        const testimonialsSection = document.querySelector('.testimonials');
+        if (testimonialsSection) {
+            // Section title
+            const title = testimonialsSection.querySelector('.testimonials-title');
+            if (title) {
+                title.classList.add('title-animate');
+                this.observer.observe(title);
+            }
+            
+            // Testimonials grid
+            const testimonialsGrid = testimonialsSection.querySelector('.testimonials-grid');
+            if (testimonialsGrid) {
+                testimonialsGrid.classList.add('stagger-container');
+                
+                // Individual testimonial items
+                const testimonialItems = testimonialsGrid.querySelectorAll('.testimonial');
+                testimonialItems.forEach((item, index) => {
+                    item.classList.add('stagger-item');
+                    if (index < 8) {
+                        item.classList.add(`delay-${index + 1}`);
+                    }
+                });
+                
+                this.observer.observe(testimonialsGrid);
+            }
+            
+            // See more buttons
+            const seeMoreContainer = testimonialsSection.querySelector('.testimonials-see-more-container');
+            if (seeMoreContainer) {
+                seeMoreContainer.classList.add('fade-in-up');
+                this.observer.observe(seeMoreContainer);
+            }
+        }
+    }
+    
+    setupBrandsAnimations() {
+        const brandsSection = document.querySelector('.brands');
+        if (brandsSection) {
+            // Section title
+            const title = brandsSection.querySelector('.section-title');
+            if (title) {
+                title.classList.add('title-animate');
+                this.observer.observe(title);
+            }
+            
+            // Brands subtitle
+            const subtitle = brandsSection.querySelector('.brands-subtitle');
+            if (subtitle) {
+                subtitle.classList.add('fade-in-up');
+                this.observer.observe(subtitle);
+            }
+            
+            // Brands grid
+            const brandsGrid = brandsSection.querySelector('.brands-grid');
+            if (brandsGrid) {
+                brandsGrid.classList.add('stagger-container');
+                
+                // Individual brand logos
+                const brandLogos = brandsGrid.querySelectorAll('.brand-logo');
+                brandLogos.forEach((logo, index) => {
+                    logo.classList.add('stagger-item');
+                    if (index < 10) {
+                        logo.classList.add(`delay-${(index % 10) + 1}`);
+                    }
+                });
+                
+                this.observer.observe(brandsGrid);
+            }
+        }
+    }
+    
+    setupContactAnimations() {
+        const contactSection = document.querySelector('.contact');
+        if (contactSection) {
+            // Section title
+            const title = contactSection.querySelector('.section-title');
+            if (title) {
+                title.classList.add('title-animate');
+                this.observer.observe(title);
+            }
+            
+            // Contact content
+            const contactContent = contactSection.querySelector('.contact-content');
+            if (contactContent) {
+                // Contact info (left side)
+                const contactInfo = contactContent.querySelector('.contact-info');
+                if (contactInfo) {
+                    contactInfo.classList.add('fade-in-left');
+                    this.observer.observe(contactInfo);
+                }
+                
+                // Contact form (right side)
+                const contactForm = contactContent.querySelector('.contact-form');
+                if (contactForm) {
+                    contactForm.classList.add('fade-in-right');
+                    this.observer.observe(contactForm);
+                }
+            }
+        }
+    }
+    
+    setupLegacyAnimations() {
+        // Support for existing portfolio items, service items, and testimonials
+        document.querySelectorAll('.portfolio-item').forEach(el => {
+            if (!el.classList.contains('stagger-item')) {
+                el.classList.add('scroll-reveal');
+                this.observer.observe(el);
+            }
+        });
+    }
+}
 
-// Observe elements for scroll animations
-document.querySelectorAll('.portfolio-item, .service-item, .testimonial').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(30px)';
-    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    observer.observe(el);
-});
+// Initialize the scroll reveal manager
+const scrollRevealManager = new ScrollRevealManager();
 
 // Portfolio Filter Functionality
 class PortfolioFilter {
@@ -947,4 +1186,139 @@ function initSeeMoreButtons() {
 // Re-initialize on window resize
 window.addEventListener('resize', function() {
     initSeeMoreButtons();
+});
+
+// Marquee Photo Modal Functionality
+class MarqueePhotoModal {
+    constructor() {
+        this.modal = document.getElementById('photoModal');
+        this.modalPhoto = document.getElementById('modalPhoto');
+        this.closeBtn = document.querySelector('.photo-modal-close');
+        this.prevBtn = document.getElementById('photoPrevBtn');
+        this.nextBtn = document.getElementById('photoNextBtn');
+        this.counter = document.getElementById('photoCounter');
+        this.currentIndex = 0;
+        this.photos = [];
+        this.init();
+    }
+
+    init() {
+        this.collectPhotos();
+        this.setupEventListeners();
+        this.setupPhotoClickHandlers();
+    }
+
+    collectPhotos() {
+        // Collect all marquee images and filter out duplicates
+        const allImages = Array.from(document.querySelectorAll('.marquee-image'));
+        const uniqueImages = new Map();
+        
+        allImages.forEach(img => {
+            const src = img.src;
+            if (!uniqueImages.has(src)) {
+                uniqueImages.set(src, {
+                    src: src,
+                    alt: img.alt || 'Portfolio photo'
+                });
+            }
+        });
+        
+        this.photos = Array.from(uniqueImages.values());
+    }
+
+    setupEventListeners() {
+        // Close modal events
+        this.closeBtn.addEventListener('click', () => this.closeModal());
+        this.modal.addEventListener('click', (e) => {
+            if (e.target === this.modal) {
+                this.closeModal();
+            }
+        });
+
+        // Navigation events
+        this.prevBtn.addEventListener('click', () => this.navigatePhoto(-1));
+        this.nextBtn.addEventListener('click', () => this.navigatePhoto(1));
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (this.modal.style.display === 'block') {
+                switch(e.key) {
+                    case 'Escape':
+                        this.closeModal();
+                        break;
+                    case 'ArrowLeft':
+                        this.navigatePhoto(-1);
+                        break;
+                    case 'ArrowRight':
+                        this.navigatePhoto(1);
+                        break;
+                }
+            }
+        });
+    }
+
+    setupPhotoClickHandlers() {
+        document.querySelectorAll('.marquee-image').forEach((img) => {
+            img.addEventListener('click', () => {
+                // Find the correct index in the unique photos array
+                const clickedSrc = img.src;
+                const photoIndex = this.photos.findIndex(photo => photo.src === clickedSrc);
+                if (photoIndex !== -1) {
+                    this.openModal(photoIndex);
+                }
+            });
+        });
+    }
+
+    openModal(index) {
+        this.currentIndex = index;
+        this.updateModalContent();
+        this.modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+        
+        // Add fade-in animation
+        this.modal.style.opacity = '0';
+        setTimeout(() => {
+            this.modal.style.opacity = '1';
+        }, 10);
+    }
+
+    closeModal() {
+        this.modal.style.opacity = '0';
+        setTimeout(() => {
+            this.modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }, 300);
+    }
+
+    navigatePhoto(direction) {
+        this.currentIndex += direction;
+        
+        // Loop around
+        if (this.currentIndex >= this.photos.length) {
+            this.currentIndex = 0;
+        } else if (this.currentIndex < 0) {
+            this.currentIndex = this.photos.length - 1;
+        }
+        
+        this.updateModalContent();
+    }
+
+    updateModalContent() {
+        const photo = this.photos[this.currentIndex];
+        this.modalPhoto.src = photo.src;
+        this.modalPhoto.alt = photo.alt;
+        this.counter.textContent = `${this.currentIndex + 1} / ${this.photos.length}`;
+        
+        // Add loading animation
+        this.modalPhoto.style.opacity = '0';
+        this.modalPhoto.onload = () => {
+            this.modalPhoto.style.opacity = '1';
+        };
+    }
+}
+
+// Initialize marquee photo modal when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    new MarqueePhotoModal();
 });
