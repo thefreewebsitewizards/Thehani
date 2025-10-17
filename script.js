@@ -1,6 +1,7 @@
-// Mobile Navigation Toggle
-const hamburger = document.querySelector('.hamburger');
-const navMenu = document.querySelector('.nav-menu');
+// Mobile Navigation Toggle (sub-navbar only)
+const subNavbar = document.querySelector('.sub-navbar');
+const hamburger = subNavbar ? subNavbar.querySelector('.hamburger') : null;
+const navMenu = subNavbar ? subNavbar.querySelector('.nav-menu') : null;
 
 if (hamburger && navMenu) {
     hamburger.addEventListener('click', () => {
@@ -8,8 +9,8 @@ if (hamburger && navMenu) {
         navMenu.classList.toggle('active');
     });
 
-    // Close mobile menu when clicking on a link
-    document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
+    // Close mobile menu when clicking on any nav link in sub-navbar
+    subNavbar.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
         hamburger.classList.remove('active');
         navMenu.classList.remove('active');
     }));
@@ -29,19 +30,74 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Navbar background on scroll
-window.addEventListener('scroll', () => {
-    const navbar = document.querySelector('.navbar');
-    if (navbar) {
-        if (window.scrollY > 100) {
-            navbar.style.background = 'rgba(255, 255, 255, 0.98)';
-            navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+/* Sticky navbar behavior like heyyyitsniah: class-based toggle */
+const heroSection = document.querySelector('.hero');
+const subNavbarEl = document.querySelector('.sub-navbar');
+let heroVisible = true;
+
+if (heroSection && subNavbarEl) {
+    const heroObserver = new IntersectionObserver((entries) => {
+        const entry = entries[0];
+        heroVisible = entry.isIntersecting;
+        if (heroVisible) {
+            // Hero visible: disable sticky and remove scrolled styles
+            subNavbarEl.classList.add('sticky-disabled');
+            subNavbarEl.classList.remove('sticky');
+            subNavbarEl.classList.remove('scrolled');
         } else {
-            navbar.style.background = 'rgba(255, 255, 255, 0.95)';
-            navbar.style.boxShadow = 'none';
+            // Hero out of view: enable sticky and scrolled styles
+            subNavbarEl.classList.remove('sticky-disabled');
+            subNavbarEl.classList.add('sticky');
+            subNavbarEl.classList.add('scrolled');
+        }
+        // Apply body offset based on current sticky state
+        applySubNavbarOffset();
+    }, { threshold: 0, rootMargin: '-12px 0px 0px 0px' });
+    heroObserver.observe(heroSection);
+} else if (subNavbarEl) {
+    // No hero section present (standalone pages): keep navbar sticky
+    subNavbarEl.classList.remove('sticky-disabled');
+    subNavbarEl.classList.add('sticky');
+    subNavbarEl.classList.add('scrolled');
+    heroVisible = false;
+    // Apply body offset since navbar is fixed on standalone pages
+    applySubNavbarOffset();
+}
+
+// Sync classes on scroll/resize to guard against edge cases
+function applySubNavbarOffset() {
+    const el = document.querySelector('.sub-navbar');
+    if (!el) return;
+    const nextEl = el.nextElementSibling; // typically the portfolio section on index.html
+    const isSticky = el.classList.contains('sticky') && !el.classList.contains('sticky-disabled');
+
+    if (nextEl) {
+        if (isSticky) {
+            const h = el.offsetHeight;
+            nextEl.style.marginTop = `${h}px`;
+        } else {
+            nextEl.style.marginTop = '';
         }
     }
-});
+}
+
+function syncSubNavbarState() {
+    const el = document.querySelector('.sub-navbar');
+    if (!el) return;
+    if (heroVisible) {
+        el.classList.add('sticky-disabled');
+        el.classList.remove('sticky');
+        el.classList.remove('scrolled');
+    } else {
+        el.classList.remove('sticky-disabled');
+        el.classList.add('sticky');
+        el.classList.add('scrolled');
+    }
+    applySubNavbarOffset();
+}
+
+window.addEventListener('scroll', syncSubNavbarState);
+window.addEventListener('resize', syncSubNavbarState);
 
 // Enhanced Intersection Observer for scroll-triggered animations
 class ScrollRevealManager {
@@ -581,8 +637,8 @@ class ModernVideoGallery {
 // Video Grid Gallery with Modal Functionality
 class VideoGridGallery {
     constructor() {
-        // Look for both mobile-specific and general video items
-        this.videoItems = document.querySelectorAll('.video-item-mobile, .video-item');
+        // Look for both mobile-specific and general video items, plus videography thumbnail containers
+        this.videoItems = document.querySelectorAll('.video-item-mobile, .video-item, .video-thumb');
         this.modal = null;
         this.currentVideoIndex = 0;
         
@@ -609,10 +665,6 @@ class VideoGridGallery {
                     <source src="" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
-                <div class="video-modal-info-mobile">
-                    <h4 class="video-modal-title-mobile"></h4>
-                    <p class="video-modal-desc-mobile"></p>
-                </div>
             </div>
         `;
         document.body.appendChild(this.modal);
@@ -652,10 +704,12 @@ class VideoGridGallery {
     
     setupVideoHoverEffects() {
         this.videoItems.forEach(item => {
+            // Do not auto-play hover previews for videography thumbnails
+            if (item.classList.contains('video-thumb')) return;
             const video = item.querySelector('video');
             if (video) {
                 item.addEventListener('mouseenter', () => {
-                    video.play().catch(e => console.log('Preview play prevented:', e));
+                    video.play().catch(() => {});
                 });
                 
                 item.addEventListener('mouseleave', () => {
@@ -684,14 +738,14 @@ class VideoGridGallery {
     
     updateModalContent() {
         const currentItem = this.videoItems[this.currentVideoIndex];
-        const video = this.modal.querySelector('.video-modal-player-mobile source');
-        const title = this.modal.querySelector('.video-modal-title-mobile');
-        const desc = this.modal.querySelector('.video-modal-desc-mobile');
-        
-        video.src = currentItem.dataset.video;
-        title.textContent = currentItem.dataset.title;
-        desc.textContent = currentItem.dataset.desc;
-        
+        const sourceEl = this.modal.querySelector('.video-modal-player-mobile source');
+    
+        // Derive video source from data-video or from child <video>
+        const childVideo = currentItem.querySelector('video');
+        const childSource = childVideo ? (childVideo.currentSrc || childVideo.getAttribute('src') || (childVideo.querySelector('source') ? childVideo.querySelector('source').src : '')) : '';
+        const src = currentItem.dataset.video || currentItem.getAttribute('data-video') || childSource || '';
+        sourceEl.src = src;
+    
         // Reload video with new source and enable audio
         const videoElement = this.modal.querySelector('.video-modal-player-mobile');
         videoElement.muted = false; // Enable audio for modal playback
@@ -811,23 +865,37 @@ function navigateModal(direction) {
 // Contact Form
 function initContactForm() {
     const contactForm = document.querySelector('.contact-form');
-    if (contactForm) {
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            const formData = new FormData(contactForm);
-            const name = formData.get('name');
-            const email = formData.get('email');
-            const message = formData.get('message');
-            
-            if (name && email && message) {
-                showNotification('Thank you for your message! I\'ll get back to you soon.', 'success');
-                contactForm.reset();
-            } else {
-                showNotification('Please fill in all fields.', 'error');
+    if (!contactForm) return;
+
+    contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const nameInput = document.getElementById('name');
+        const serviceSelect = document.getElementById('service');
+        const messageInput = document.getElementById('message');
+
+        const name = (nameInput?.value || '').trim();
+        const serviceValue = serviceSelect?.value || '';
+        const serviceText = serviceSelect && serviceSelect.selectedIndex >= 0 
+            ? serviceSelect.options[serviceSelect.selectedIndex].text 
+            : '';
+        const message = (messageInput?.value || '').trim();
+
+        if (!name || !serviceValue || !message) {
+            if (typeof showNotification === 'function') {
+                showNotification('Please fill in all required fields.', 'error');
             }
-        });
-    }
+            return;
+        }
+
+        const subject = encodeURIComponent(`${name} - ${serviceText}`);
+        const body = encodeURIComponent(message);
+        const toEmail = 'hello@sriola.com';
+        const mailtoLink = `mailto:${toEmail}?subject=${subject}&body=${body}`;
+
+        // Open default email client with prefilled subject/body
+        window.location.href = mailtoLink;
+    });
 }
 
 // Notification function
@@ -1405,7 +1473,134 @@ class MarqueePhotoModal {
     }
 }
 
-// Initialize marquee photo modal when DOM is loaded
+// Initialize marquee photo modal and parallax CTA (mobile fallback)
 document.addEventListener('DOMContentLoaded', () => {
-    new MarqueePhotoModal();
+    // Parallax CTA JS fallback for devices where background-attachment: fixed is disabled
+    function initParallaxCTA() {
+        const sections = document.querySelectorAll('.cta-parallax');
+        if (!sections.length) return;
+
+        const isCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
+        const isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+        const needsJS = isCoarsePointer || isiOS || Array.from(sections).some(s => getComputedStyle(s).backgroundAttachment !== 'fixed');
+
+        if (!needsJS) return;
+
+        // Build transform-based background layer for mobile/touch
+        const layers = [];
+        sections.forEach(section => {
+            section.style.backgroundAttachment = 'scroll';
+            // create bg layer if missing
+            let bg = section.querySelector('.cta-bg');
+            if (!bg) {
+                bg = document.createElement('div');
+                bg.className = 'cta-bg';
+                const computed = getComputedStyle(section);
+                if (computed.backgroundImage && computed.backgroundImage !== 'none') {
+                    bg.style.backgroundImage = computed.backgroundImage;
+                }
+                section.classList.add('has-js-parallax');
+                section.appendChild(bg);
+            }
+            layers.push({ section, bg });
+        });
+
+        let ticking = false;
+        const update = () => {
+            layers.forEach(({ section, bg }) => {
+                const rect = section.getBoundingClientRect();
+                if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+                const y = Math.round(-rect.top);
+                // Shift background-position to simulate parallax without exposing edges
+                bg.style.backgroundPosition = `center ${Math.round(y * 0.35)}px`;
+            });
+            ticking = false;
+        };
+
+        const requestUpdate = () => {
+            if (!ticking) {
+                ticking = true;
+                requestAnimationFrame(update);
+            }
+        };
+
+        window.addEventListener('scroll', requestUpdate, { passive: true });
+        window.addEventListener('resize', requestUpdate);
+        requestUpdate();
+    }
+
+    initParallaxCTA();
+
+    // Index hero animations: staggered quote reveal and CTA entry
+    (function initIndexHeroAnimations() {
+        const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const quoteEl = document.querySelector('#home .hero-quote blockquote');
+        if (quoteEl) {
+            const fullText = (quoteEl.textContent || '').trim().replace(/\s+/g, ' ');
+            if (!prefersReduced) {
+                const words = fullText.split(' ');
+                quoteEl.textContent = '';
+                words.forEach((word, i) => {
+                    const span = document.createElement('span');
+                    span.className = 'reveal-word';
+                    span.style.setProperty('--delay', `${Math.min(i * 60, 2400)}ms`);
+                    span.textContent = word;
+                    quoteEl.appendChild(span);
+                    if (i < words.length - 1) {
+                        // Add a normal space text node after each word to preserve spacing
+                        quoteEl.appendChild(document.createTextNode(' '));
+                    }
+                });
+            } else {
+                quoteEl.textContent = fullText;
+            }
+        }
+        const instaText = document.querySelector('.cta-section .instagram-text');
+        const instaLink = document.querySelector('.cta-section .instagram-link');
+        if (instaText) instaText.classList.add('cta-text-enter');
+        if (instaLink) instaLink.classList.add('cta-enter');
+    })();
+
+    // Typewriter animation for hero page titles across dedicated pages
+    (function initHeroTypewriter() {
+        const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const titleEl = document.querySelector('.page-hero.video .page-title');
+        if (!titleEl) return;
+        const fullText = (titleEl.textContent || '').trim();
+        titleEl.classList.add('typewriter-active');
+
+        if (prefersReduced) {
+            // Show full text without animation
+            titleEl.textContent = fullText;
+            return;
+        }
+
+        // Create inner span for typed text so caret can sit after it
+        const typedSpan = document.createElement('span');
+        typedSpan.className = 'typewriter-text';
+        titleEl.textContent = '';
+        titleEl.appendChild(typedSpan);
+
+        let i = 0;
+        const delayBefore = 200; // small pause before typing
+        const perChar = 90; // ms per character for comfortable pace
+        setTimeout(() => {
+            const tick = () => {
+                if (i < fullText.length) {
+                    typedSpan.textContent += fullText.charAt(i);
+                    i++;
+                    setTimeout(tick, perChar);
+                } else {
+                    // typing complete: caret keeps blinking via CSS
+                }
+            };
+            tick();
+        }, delayBefore);
+    })();
+
+    const photoModalEl = document.getElementById('photoModal');
+    const marqueeSection = document.querySelector('.marquee-gallery');
+    if (photoModalEl || marqueeSection) {
+        new MarqueePhotoModal();
+    }
 });

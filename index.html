@@ -8,8 +8,54 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
+    <!-- Navigation (Hero) -->
+    <nav class="navbar nav-hero">
+        <div class="nav-container nav-center-layout">
+            <ul class="nav-menu nav-left">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+            </ul>
+            <div class="nav-logo">
+                <h1>Sriolà</h1>
+                <span class="by-text">By Thehani</span>
+            </div>
+            <ul class="nav-menu nav-right">
+                <li><a href="#services" class="nav-link">Content Suite</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="hero">
+        <!-- Slideshow background -->
+        <div class="hero-slideshow">
+            <div class="hero-slide hero-slide-1"></div>
+            <div class="hero-slide hero-slide-2"></div>
+            <div class="hero-slide hero-slide-3"></div>
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="hero-container">
+            <!-- Keep only the quote and Instagram CTA -->
+            <div class="hero-quote">
+                <blockquote>
+                    I create content that works — authentic, engaging, and tailored for your brand.
+                </blockquote>
+            </div>
+            <div class="cta-section">
+                <p class="instagram-text">Follow me on Instagram</p>
+                <a href="https://instagram.com/bythehani" target="_blank" class="instagram-link">
+                    <svg class="instagram-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" fill="currentColor"/>
+                    </svg>
+                    <span>@bythehani</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Secondary Navbar (sticky when portfolio reaches top) -->
+    <nav class="sub-navbar">
         <div class="nav-container">
             <div class="nav-logo">
                 <h1>Sriolà</h1>
@@ -29,387 +75,28 @@
         </div>
     </nav>
 
-    <!-- Home Section -->
-    <section id="home" class="hero">
-        <div class="hero-container">
-            <div class="hero-content">
-                <div class="brand-section">
-                    <h1 class="brand-name">Sriolà</h1>
-                    <p class="by-line">By Thehani</p>
-                    <div class="tagline">
-                        <h2 class="subheading">Where ideas become visuals</h2>
-                        <p class="tagline-sub">crafted with elegance and intention</p>
-                    </div>
-                </div>
-            </div>
-            <div class="hero-quote">
-                <blockquote>
-                    "I create content that works, authentic, engaging, and tailored for your brand. <br> If you're ready to elevate your socials, let's collaborate." <br/>
-                </blockquote>
-            </div>
-            <div class="hero-description">
-                <div class="content-promise">
-                    <p class="excitement-text">
-                        I can't wait to bring your brand's vision to life!
-                    </p>
-                </div>
-                <div class="cta-section">
-                    <p class="instagram-text">Follow me on Instagram</p>
-                    <a href="https://instagram.com/thehani" target="_blank" class="instagram-link">
-                        <svg class="instagram-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" fill="currentColor"/>
-                        </svg>
-                        <span>@thehani</span>
-                    </a>
-                </div>
-                    
-    
-                </div>
-            </div>
-        </section>
-
-    <!-- Portfolio Section - Simplified -->
+    <!-- Portfolio Section - Redesigned with Categories -->
     <section id="portfolio" class="portfolio">
         <div class="container">
             <h2 class="section-title">Portfolio</h2>
             
-            <!-- Photography Subsection -->
-            <h3 class="portfolio-subsection-title">Photography</h3>
-            
-            <!-- Animated Marquee Gallery -->
-            <div class="portfolio-marquee-gallery">
-                <!-- First Row - Left to Right -->
-                <div class="marquee-row marquee-left-to-right">
-                    <div class="marquee-content">
-                        <img src="images/a.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/b.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/c.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/d.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/1.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/2.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/3.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/4.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/5.jpg" alt="Portfolio Image" class="marquee-image">
-                        <!-- Duplicate for seamless loop -->
-                        <img src="images/a.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/b.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/c.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/d.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/1.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/2.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/3.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/4.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/5.jpg" alt="Portfolio Image" class="marquee-image">
-                    </div>
-                </div>
-                
-                <!-- Second Row - Right to Left -->
-                <div class="marquee-row marquee-right-to-left">
-                    <div class="marquee-content">
-                        <img src="images/6.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/7.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/8.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/9.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/10.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/11.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/12.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/13.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/14.jpg" alt="Portfolio Image" class="marquee-image">
-                        <!-- Duplicate for seamless loop -->
-                        <img src="images/6.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/7.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/8.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/9.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/10.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/11.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/12.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/13.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/14.jpg" alt="Portfolio Image" class="marquee-image">
-                    </div>
-                </div>
-                
-                <!-- Third Row - Left to Right -->
-                <div class="marquee-row marquee-left-to-right">
-                    <div class="marquee-content">
-                        <img src="images/15.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/16.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/17.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/18.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/19.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/20.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/21.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/22.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/23.jpg" alt="Portfolio Image" class="marquee-image">
-                        <!-- Duplicate for seamless loop -->
-                        <img src="images/15.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/16.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/17.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/18.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/19.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/20.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/21.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/22.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/23.jpg" alt="Portfolio Image" class="marquee-image">
-                    </div>
-                </div>
-                
-                <!-- Fourth Row - Right to Left -->
-                <div class="marquee-row marquee-right-to-left">
-                    <div class="marquee-content">
-                        <img src="images/24.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/25.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/26.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/27.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/28.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/29.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/30.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/31.jpg" alt="Portfolio Image" class="marquee-image">
-                        <!-- Duplicate for seamless loop -->
-                        <img src="images/24.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/25.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/26.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/27.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/28.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/29.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/30.jpg" alt="Portfolio Image" class="marquee-image">
-                        <img src="images/31.jpg" alt="Portfolio Image" class="marquee-image">
-                    </div>
-                </div>
+            <!-- Category Grid (links to dedicated pages) -->
+            <div class="portfolio-category-grid">
+                <a class="category-card" href="videography.html">
+                    <img src="images/14.jpg" alt="Videography" class="category-image">
+                    <span class="category-label">Videography</span>
+                </a>
+                <a class="category-card" href="photography.html">
+                    <img src="images/11.jpg" alt="Photography" class="category-image">
+                    <span class="category-label">Photography</span>
+                </a>
+                <a class="category-card" href="voiceovers.html">
+                    <img src="images/16.jpg" alt="Voiceovers & Scripts" class="category-image">
+                    <span class="category-label">Voiceovers & Scripts</span>
+                </a>
             </div>
             
-            <!-- Video Gallery Section -->
-            <div class="video-portfolio-section">
-                <div class="container">
-                    <h2 class="video-portfolio-title">video portfolio</h2>
-                    <p class="video-portfolio-subtitle">Paid ads and UCG / content examples</p>
-                    
-                    <div class="video-grid">
-                        <div class="video-item" data-video="video/h.mp4" data-title="Product Showcase" data-desc="Beautiful product presentation">
-                            <div class="phone-frame">
-                                <div class="phone-screen">
-                                    <video muted loop preload="metadata">
-                                        <source src="video/h.mp4" type="video/mp4">
-                                    </video>
-                                    <div class="video-play-overlay">
-                                        <div class="play-button">▶</div>
-                                    </div>
-                                </div>
-                                <div class="phone-notch"></div>
-                            </div>
-                            <div class="video-info" style="display: none;">
-                                <h4>Product Showcase</h4>
-                                <p>Beautiful product presentation</p>
-                            </div>
-                        </div>
-                        
-                        <div class="video-item" data-video="video/a.mp4" data-title="Food Lifestyle" data-desc="Culinary artistry captured">
-                            <div class="phone-frame">
-                                <div class="phone-screen">
-                                    <video muted loop preload="metadata">
-                                        <source src="video/a.mp4" type="video/mp4">
-                                    </video>
-                                    <div class="video-play-overlay">
-                                        <div class="play-button">▶</div>
-                                    </div>
-                                </div>
-                                <div class="phone-notch"></div>
-                            </div>
-                            <div class="video-info" style="display: none;">
-                                <h4>Food Lifestyle</h4>
-                                <p>Culinary artistry captured</p>
-                            </div>
-                        </div>
-                        
-                        <div class="video-item" data-video="video/b.mp4" data-title="Beauty Shots" data-desc="Elegant beauty presentation">
-                            <div class="phone-frame">
-                                <div class="phone-screen">
-                                    <video muted loop preload="metadata">
-                                        <source src="video/b.mp4" type="video/mp4">
-                                    </video>
-                                    <div class="video-play-overlay">
-                                        <div class="play-button">▶</div>
-                                    </div>
-                                </div>
-                                <div class="phone-notch"></div>
-                            </div>
-                            <div class="video-info" style="display: none;">
-                                <h4>Beauty Shots</h4>
-                                <p>Elegant beauty presentation</p>
-                            </div>
-                        </div>
-                        
-                        <div class="video-item" data-video="video/c.mp4" data-title="Lifestyle" data-desc="Dynamic lifestyle content">
-                            <div class="phone-frame">
-                                <div class="phone-screen">
-                                    <video muted loop preload="metadata">
-                                        <source src="video/c.mp4" type="video/mp4">
-                                    </video>
-                                    <div class="video-play-overlay">
-                                        <div class="play-button">▶</div>
-                                    </div>
-                                </div>
-                                <div class="phone-notch"></div>
-                            </div>
-                            <div class="video-info" style="display: none;">
-                                <h4>Lifestyle</h4>
-                                <p>Dynamic lifestyle content</p>
-                            </div>
-                        </div>
-                        
-                        <div class="video-item" data-video="video/d.mp4" data-title="Tech Demo" data-desc="Technology showcase">
-                            <div class="phone-frame">
-                                <div class="phone-screen">
-                                    <video muted loop preload="metadata">
-                                        <source src="video/d.mp4" type="video/mp4">
-                                    </video>
-                                    <div class="video-play-overlay">
-                                        <div class="play-button">▶</div>
-                                    </div>
-                                </div>
-                                <div class="phone-notch"></div>
-                            </div>
-                            <div class="video-info" style="display: none;">
-                                <h4>Tech Demo</h4>
-                                <p>Technology showcase</p>
-                            </div>
-                        </div>
-                        
-                        <div class="video-item" data-video="video/e.mp4" data-title="Creative Content" data-desc="Artistic visual storytelling">
-                            <div class="phone-frame">
-                                <div class="phone-screen">
-                                    <video muted loop preload="metadata">
-                                        <source src="video/e.mp4" type="video/mp4">
-                                    </video>
-                                    <div class="video-play-overlay">
-                                        <div class="play-button">▶</div>
-                                    </div>
-                                </div>
-                                <div class="phone-notch"></div>
-                            </div>
-                            <div class="video-info" style="display: none;">
-                                <h4>Creative Content</h4>
-                                <p>Artistic visual storytelling</p>
-                            </div>
-                        </div>
-                        
-                        <div class="video-item" data-video="video/f.mp4" data-title="Brand Story" data-desc="Compelling brand narrative">
-                            <div class="phone-frame">
-                                <div class="phone-screen">
-                                    <video muted loop preload="metadata">
-                                        <source src="video/f.mp4" type="video/mp4">
-                                    </video>
-                                    <div class="video-play-overlay">
-                                        <div class="play-button">▶</div>
-                                    </div>
-                                </div>
-                                <div class="phone-notch"></div>
-                            </div>
-                            <div class="video-info" style="display: none;">
-                                <h4>Brand Story</h4>
-                                <p>Compelling brand narrative</p>
-                            </div>
-                        </div>
-                        
-                        <div class="video-item" data-video="video/v1.mp4" data-title="Creative Showcase" data-desc="Creative videography showcase">
-                            <div class="phone-frame">
-                                <div class="phone-screen">
-                                    <video muted loop preload="metadata">
-                                        <source src="video/v1.mp4" type="video/mp4">
-                                    </video>
-                                    <div class="video-play-overlay">
-                                        <div class="play-button">▶</div>
-                                    </div>
-                                </div>
-                                <div class="phone-notch"></div>
-                            </div>
-                            <div class="video-info" style="display: none;">
-                                <h4>Creative Showcase</h4>
-                                <p>Creative videography showcase</p>
-                            </div>
-                        </div>
-                        
-                        <div class="video-item" data-video="video/v2.mp4" data-title="Professional Reel" data-desc="Professional video content creation">
-                            <div class="phone-frame">
-                                <div class="phone-screen">
-                                    <video muted loop preload="metadata">
-                                        <source src="video/v2.mp4" type="video/mp4">
-                                    </video>
-                                    <div class="video-play-overlay">
-                                        <div class="play-button">▶</div>
-                                    </div>
-                                </div>
-                                <div class="phone-notch"></div>
-                            </div>
-                            <div class="video-info" style="display: none;">
-                                <h4>Professional Reel</h4>
-                                <p>Professional video content creation</p>
-                            </div>
-                        </div>
-                        
-                        <div class="video-item" data-video="video/v3.mp4" data-title="Cinematic Stories" data-desc="Cinematic storytelling and visual narratives">
-                            <div class="phone-frame">
-                                <div class="phone-screen">
-                                    <video muted loop preload="metadata">
-                                        <source src="video/v3.mp4" type="video/mp4">
-                                    </video>
-                                    <div class="video-play-overlay">
-                                        <div class="play-button">▶</div>
-                                    </div>
-                                </div>
-                                <div class="phone-notch"></div>
-                            </div>
-                            <div class="video-info" style="display: none;">
-                                <h4>Cinematic Stories</h4>
-                                <p>Cinematic storytelling and visual narratives</p>
-                            </div>
-                        </div>
-                        
-                        <div class="video-item" data-video="video/v4.mp4" data-title="Dynamic Visuals" data-desc="Dynamic visual content and motion graphics">
-                            <div class="phone-frame">
-                                <div class="phone-screen">
-                                    <video muted loop preload="metadata">
-                                        <source src="video/v4.mp4" type="video/mp4">
-                                    </video>
-                                    <div class="video-play-overlay">
-                                        <div class="play-button">▶</div>
-                                    </div>
-                                </div>
-                                <div class="phone-notch"></div>
-                            </div>
-                            <div class="video-info" style="display: none;">
-                                <h4>Dynamic Visuals</h4>
-                                <p>Dynamic visual content and motion graphics</p>
-                            </div>
-                        </div>
-                        
-                        <div class="video-item" data-video="video/v5.mp4" data-title="Artistic Production" data-desc="Artistic video production and creative direction">
-                            <div class="phone-frame">
-                                <div class="phone-screen">
-                                    <video muted loop preload="metadata">
-                                        <source src="video/v5.mp4" type="video/mp4">
-                                    </video>
-                                    <div class="video-play-overlay">
-                                        <div class="play-button">▶</div>
-                                    </div>
-                                </div>
-                                <div class="phone-notch"></div>
-                            </div>
-                            <div class="video-info" style="display: none;">
-                                <h4>Artistic Production</h4>
-                                <p>Artistic video production and creative direction</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Video Buttons -->
-                    <div class="video-buttons">
-                        <button class="video-see-more-btn" id="videoPortfolioSeeMoreBtn">See All Videos</button>
-                    <button class="video-minimize-btn" id="videoPortfolioMinimizeBtn" style="display: none;">Show Less</button>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Video Modal removed - using dynamically created mobile modal -->
+            <!-- Legacy photography and video subsections removed to keep only three portfolio cards -->
 
             <!-- Photo Modal -->
             <div id="photoModal" class="photo-modal">
@@ -432,57 +119,7 @@
                 </div>
             </div>
             
-            <!-- Testimonials -->
-            <div class="testimonials">
-                <h3 class="testimonials-title">Client Feedback</h3>
-                <div class="testimonials-grid">
-                    <div class="testimonial">
-                        <div class="stars">★★★★★</div>
-                        <p>"Great content & lovely to work with"</p>
-                        <cite>- INSKIN COSMEDICS</cite>
-                    </div>
-                    <div class="testimonial">
-                        <div class="stars">★★★★★</div>
-                        <p>"We've loved working with Thehani! So great to deal with and would love to do so again. Highly recommend!"</p>
-                        <cite>- Retreat Yourself Box</cite>
-                    </div>
-                    <div class="testimonial">
-                        <div class="stars">★★★★★</div>
-                        <p>"Great content, a pleasure to work with!"</p>
-                        <cite>- AE CREATIVE | COMMUNICATIONS</cite>
-                    </div>
-                    <div class="testimonial">
-                        <div class="stars">★★★★★</div>
-                        <p>"easy to work with and very cooperative. beautiful content also. really love to work with Thehani."</p>
-                        <cite>- Social Status</cite>
-                    </div>
-                    <div class="testimonial">
-                        <div class="stars">★★★★★</div>
-                        <p>"Thehani looks gorgeous in her dresses! Thank you for collaborating with us xx"</p>
-                        <cite>- Salty Crush</cite>
-                    </div>
-                    <div class="testimonial">
-                        <div class="stars">★★★★★</div>
-                        <p>"Thehani was super easy to communicate with. She created beautiful content for us. Can't wait to work with her again."</p>
-                        <cite>- BONIIK</cite>
-                    </div>
-                    <div class="testimonial hidden-testimonial">
-                        <div class="stars">★★★★★</div>
-                        <p>"Fabulous content, a pleasure to collaborate with!"</p>
-                        <cite>- AE CREATIVE | COMMUNICATIONS</cite>
-                    </div>
-                    <div class="testimonial hidden-testimonial">
-                        <div class="stars">★★★★★</div>
-                        <p>"Thehani responded quickly and created some amazing content!"</p>
-                        <cite>- Neutriderm</cite>
-                    </div>
-                </div>
-                <!-- Testimonials See More Buttons -->
-                <div class="testimonials-see-more-container">
-                    <button class="see-more-btn" id="seeAllReviews">See All Reviews</button>
-                    <button id="testimonials-minimize" class="minimize-btn" style="display: none;">Show Less</button>
-                </div>
-            </div>
+            <!-- Testimonials moved below services -->
         </div>
     </section>
 
@@ -525,6 +162,30 @@
         </div>
     </section>
 
+    <!-- Client Feedback Section -->
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <h3 class="testimonials-title">Client Feedback</h3>
+            <div class="testimonials-grid">
+                <div class="testimonial">
+                    <div class="stars">★★★★★</div>
+                    <p>Your content looks awesome by the way — I spoke to the client today and they said your videos are performing so well on Meta!</p>
+                    <cite>— Client</cite>
+                </div>
+                <div class="testimonial">
+                    <div class="stars">★★★★★</div>
+                    <p>Hi Thehani, I hope you had a lovely long weekend! I'm excited to share that the client loved your videos and there are no further edits to be made :)</p>
+                    <cite>— Client</cite>
+                </div>
+                <div class="testimonial">
+                    <div class="stars">★★★★★</div>
+                    <p>Thank you again for all your work on creating lovely content for us this season!</p>
+                    <cite>— Client</cite>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Brands Section -->
     <section id="brands" class="brands">
         <div class="container">
@@ -532,64 +193,133 @@
             <p class="brands-subtitle">I've had the privilege of creating content for these amazing brands</p>
             <div class="brands-grid">
                 <div class="brand-logo">
-                    <img src="logos/Photo 22-8-2025, 12 10 42.jpg" alt="Brand Logo" class="brand-img">
+                    <img src="logos/Logo1.jpg" alt="Brand Logo" class="brand-img">
                 </div>
                 <div class="brand-logo">
-                    <img src="logos/Photo 22-8-2025, 12 10 42 (1).jpg" alt="Brand Logo" class="brand-img">
+                    <img src="logos/Logo2.jpg" alt="Brand Logo" class="brand-img">
                 </div>
                 <div class="brand-logo">
-                    <img src="logos/Photo 22-8-2025, 12 10 42 (2).jpg" alt="Brand Logo" class="brand-img">
+                    <img src="logos/Logo3.jpg" alt="Brand Logo" class="brand-img">
                 </div>
                 <div class="brand-logo">
-                    <img src="logos/Photo 22-8-2025, 12 10 42 (3).jpg" alt="Brand Logo" class="brand-img">
+                    <img src="logos/Logo4.jpg" alt="Brand Logo" class="brand-img">
                 </div>
                 <div class="brand-logo">
-                    <img src="logos/Photo 22-8-2025, 12 10 42 (4).jpg" alt="Brand Logo" class="brand-img">
+                    <img src="logos/Logo5.jpg" alt="Brand Logo" class="brand-img">
                 </div>
                 <div class="brand-logo">
-                    <img src="logos/Photo 22-8-2025, 12 10 42 (5).jpg" alt="Brand Logo" class="brand-img">
+                    <img src="logos/Logo6.jpg" alt="Brand Logo" class="brand-img">
                 </div>
                 <div class="brand-logo">
-                    <img src="logos/Photo 22-8-2025, 12 10 42 (6).jpg" alt="Brand Logo" class="brand-img">
+                    <img src="logos/Logo7.jpg" alt="Brand Logo" class="brand-img">
                 </div>
                 <div class="brand-logo">
-                    <img src="logos/Photo 22-8-2025, 12 10 42 (7).jpg" alt="Brand Logo" class="brand-img">
+                    <img src="logos/Logo8.jpg" alt="Brand Logo" class="brand-img">
                 </div>
                 <div class="brand-logo">
-                    <img src="logos/Photo 22-8-2025, 12 10 42 (8).jpg" alt="Brand Logo" class="brand-img">
+                    <img src="logos/Logo9.jpg" alt="Brand Logo" class="brand-img">
                 </div>
                 <div class="brand-logo">
-                    <img src="logos/Photo 22-8-2025, 12 10 42 (9).jpg" alt="Brand Logo" class="brand-img">
+                    <img src="logos/Logo10.jpg" alt="Brand Logo" class="brand-img">
                 </div>
                 <div class="brand-logo">
-                    <img src="logos/Photo 22-8-2025, 12 10 42 (10).jpg" alt="Brand Logo" class="brand-img">
+                    <img src="logos/Logo11.jpg" alt="Brand Logo" class="brand-img">
                 </div>
                 <div class="brand-logo">
-                    <img src="logos/Photo 22-8-2025, 12 10 42 (11).jpg" alt="Brand Logo" class="brand-img">
+                    <img src="logos/Logo12.jpg" alt="Brand Logo" class="brand-img">
                 </div>
                 <div class="brand-logo">
-                    <img src="logos/Photo 22-8-2025, 12 10 42 (12).jpg" alt="Brand Logo" class="brand-img">
+                    <img src="logos/Logo13.jpg" alt="Brand Logo" class="brand-img">
                 </div>
                 <div class="brand-logo">
-                    <img src="logos/Photo 22-8-2025, 12 10 43.jpg" alt="Brand Logo" class="brand-img">
+                    <img src="logos/Logo14.jpg" alt="Brand Logo" class="brand-img">
                 </div>
                 <div class="brand-logo">
-                    <img src="logos/Photo 22-8-2025, 12 10 43 (1).jpg" alt="Brand Logo" class="brand-img">
+                    <img src="logos/Logo15.jpg" alt="Brand Logo" class="brand-img">
                 </div>
                 <div class="brand-logo">
-                    <img src="logos/Photo 22-8-2025, 12 10 43 (2).jpg" alt="Brand Logo" class="brand-img">
+                    <img src="logos/Logo16.jpg" alt="Brand Logo" class="brand-img">
                 </div>
                 <div class="brand-logo">
-                    <img src="logos/Photo 22-8-2025, 12 10 43 (3).jpg" alt="Brand Logo" class="brand-img">
+                    <img src="logos/Logo17.jpg" alt="Brand Logo" class="brand-img">
                 </div>
                 <div class="brand-logo">
-                    <img src="logos/Photo 22-8-2025, 12 10 43 (4).jpg" alt="Brand Logo" class="brand-img">
+                    <img src="logos/Logo18.jpg" alt="Brand Logo" class="brand-img">
                 </div>
                 <div class="brand-logo">
-                    <img src="logos/Photo 22-8-2025, 12 10 43 (5).jpg" alt="Brand Logo" class="brand-img">
+                    <img src="logos/Logo19.jpg" alt="Brand Logo" class="brand-img">
                 </div>
                 <div class="brand-logo">
-                    <img src="logos/Photo 22-8-2025, 12 10 43 (6).jpg" alt="Brand Logo" class="brand-img">
+                    <img src="logos/Logo20.jpg" alt="Brand Logo" class="brand-img">
+                </div>
+                <div class="brand-logo">
+                    <img src="logos/Logo21.jpg" alt="Brand Logo" class="brand-img">
+                </div>
+                <div class="brand-logo">
+                    <img src="logos/Logo22.jpg" alt="Brand Logo" class="brand-img">
+                </div>
+                <div class="brand-logo">
+                    <img src="logos/Logo23.jpg" alt="Brand Logo" class="brand-img">
+                </div>
+                <div class="brand-logo">
+                    <img src="logos/Logo24.jpg" alt="Brand Logo" class="brand-img">
+                </div>
+                <div class="brand-logo">
+                    <img src="logos/Logo25.jpg" alt="Brand Logo" class="brand-img">
+                </div>
+                <div class="brand-logo">
+                    <img src="logos/Logo26.jpg" alt="Brand Logo" class="brand-img">
+                </div>
+                <div class="brand-logo">
+                    <img src="logos/Logo27.jpg" alt="Brand Logo" class="brand-img">
+                </div>
+                <div class="brand-logo">
+                    <img src="logos/Logo28.jpg" alt="Brand Logo" class="brand-img">
+                </div>
+                <div class="brand-logo">
+                    <img src="logos/Logo29.jpg" alt="Brand Logo" class="brand-img">
+                </div>
+                <div class="brand-logo">
+                    <img src="logos/Logo30.jpg" alt="Brand Logo" class="brand-img">
+                </div>
+                <div class="brand-logo">
+                    <img src="logos/Logo31.jpg" alt="Brand Logo" class="brand-img">
+                </div>
+                <div class="brand-logo">
+                    <img src="logos/Logo32.jpg" alt="Brand Logo" class="brand-img">
+                </div>
+                <div class="brand-logo">
+                    <img src="logos/Logo33.jpg" alt="Brand Logo" class="brand-img">
+                </div>
+                <div class="brand-logo">
+                    <img src="logos/Logo34.jpg" alt="Brand Logo" class="brand-img">
+                </div>
+                <div class="brand-logo">
+                    <img src="logos/Logo35.jpg" alt="Brand Logo" class="brand-img">
+                </div>
+                <div class="brand-logo">
+                    <img src="logos/Logo36.jpg" alt="Brand Logo" class="brand-img">
+                </div>
+                <div class="brand-logo">
+                    <img src="logos/Logo37.jpg" alt="Brand Logo" class="brand-img">
+                </div>
+                <div class="brand-logo">
+                    <img src="logos/Logo38.jpg" alt="Brand Logo" class="brand-img">
+                </div>
+                <div class="brand-logo">
+                    <img src="logos/Logo39.jpg" alt="Brand Logo" class="brand-img">
+                </div>
+                <div class="brand-logo">
+                    <img src="logos/Logo40.jpg" alt="Brand Logo" class="brand-img">
+                </div>
+                <div class="brand-logo">
+                    <img src="logos/Logo41.jpg" alt="Brand Logo" class="brand-img">
+                </div>
+                <div class="brand-logo">
+                    <img src="logos/Logo42.jpg" alt="Brand Logo" class="brand-img">
+                </div>
+                <div class="brand-logo">
+                    <img src="logos/Logo43.jpg" alt="Brand Logo" class="brand-img">
                 </div>
             </div>
         </div>
@@ -622,9 +352,7 @@
                     <div class="form-group">
                         <input type="text" id="name" name="name" placeholder="Your Name" required>
                     </div>
-                    <div class="form-group">
-                        <input type="email" id="email" name="email" placeholder="Your Email" required>
-                    </div>
+
                     <div class="form-group">
                         <select id="service" name="service" required>
                             <option value="">Select Service</option>
